@@ -20,7 +20,7 @@ function Keypad() {
 
   const handleClick = (e) => {
     if (Number.isInteger(+e.target.value)) {
-      if (!firstOperation && !secondValue ) {
+      if (!firstOperation && !secondValue) {
         setFirstValue([firstValue, e.target.value].join(""));
       } else {
         setSecondValue([secondValue, e.target.value].join(""));
@@ -31,8 +31,6 @@ function Keypad() {
         : setSecondOperation(e.target.value);
     }
   };
-  useEffect(() => console.log(result),[result])
-
 
   useEffect(() => {
     if (secondValue && secondOperation) {
@@ -57,9 +55,9 @@ function Keypad() {
           calculator.execute(new ModCommand(secondValue));
           setResult(calculator.getCurrentValue());
           break;
-          case "=":
-            setFirstValue("");
-            setSecondValue("");
+        case "=":
+          setFirstValue("");
+          setSecondValue("");
         default:
           break;
       }
@@ -71,7 +69,7 @@ function Keypad() {
       calculator.setCurrentValue(firstValue);
     }
   }, [firstOperation, secondOperation, firstValue, secondValue]);
-  console.log(`Первое значение ${firstValue}, второе ${secondValue}`);
+
   return (
     <StyledKeypadContainer>
       <StyledKeyboard>

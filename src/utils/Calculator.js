@@ -73,4 +73,11 @@ const Calculator = function () {
   };
 };
 const calculator = new Calculator();
-module.exports = { AddCommand, SubCommand, MulCommand, DivCommand, calculator,ModCommand };
+module.exports = {
+  AddCommand,
+  SubCommand,
+  MulCommand,
+  DivCommand,
+  calculator,
+  ModCommand,
+};
