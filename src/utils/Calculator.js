@@ -57,13 +57,13 @@ const Calculator = function () {
       console.log(action(command) + ": " + command.value);
     },
 
-    undo: function () {
+    undo: function() {
       const command = commands.pop();
       current = command.undo(current, command.value);
       console.log("Undo " + action(command) + ": " + command.value);
     },
 
-    getCurrentValue: function () {
+    getCurrentValue: function() {
       return current;
     },
 
@@ -73,11 +73,4 @@ const Calculator = function () {
   };
 };
 const calculator = new Calculator();
-module.exports = {
-  AddCommand,
-  SubCommand,
-  MulCommand,
-  DivCommand,
-  calculator,
-  ModCommand,
-};
+module.exports = { AddCommand, SubCommand, MulCommand, DivCommand, calculator,ModCommand };
