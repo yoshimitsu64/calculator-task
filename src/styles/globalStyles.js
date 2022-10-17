@@ -8,8 +8,4 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing : border-box;
         font-family: 'Anek Latin', sans-serif;
     };
-    body{
-        overflow:hidden;
-
-    }
 `;

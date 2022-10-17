@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledControlPanelContainer = styled.div`
+export const StyledKeypadContainer = styled.div`
     width: 100%;
 `
 export const StyledKeyboard = styled.div`
