@@ -46,31 +46,60 @@ const Calculator = function () {
   const commands = [];
 
   function action(command) {
-    const name = command.execute.toString().substr(9, 3);
-    return name.charAt(0).toUpperCase() + name.slice(1);
+    let name = "";
+    switch (command.execute.name) {
+      case "add":
+        name = `${current} + ${command.value} `;
+        break;
+      case "sub":
+        name = `${current} - ${command.value} `;
+        break;
+      case "mul":
+        name = `${current} * ${command.value} `;
+        break;
+      case "div":
+        name = `${current} / ${command.value} `;
+        break;
+      case "mod":
+        name = `${current} % ${command.value} `;
+        break;
+      default:
+        break;
+    }
+    return name;
   }
 
   return {
     execute: function (command) {
+      commands.push(action(command));
       current = command.execute(current, command.value);
-      commands.push(command);
-      console.log(action(command) + ": " + command.value);
     },
 
-    undo: function() {
+    undo: function () {
       const command = commands.pop();
       current = command.undo(current, command.value);
       console.log("Undo " + action(command) + ": " + command.value);
     },
 
-    getCurrentValue: function() {
+    getCurrentValue: function () {
       return current;
     },
 
     setCurrentValue: function (value) {
       return (current = value);
     },
+
+    getCommands: () => commands,
   };
 };
+
 const calculator = new Calculator();
-module.exports = { AddCommand, SubCommand, MulCommand, DivCommand, calculator,ModCommand };
+
+module.exports = {
+  AddCommand,
+  SubCommand,
+  MulCommand,
+  DivCommand,
+  ModCommand,
+  calculator,
+};

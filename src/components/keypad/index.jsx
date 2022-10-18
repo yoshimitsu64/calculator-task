@@ -55,16 +55,21 @@ function Keypad() {
           calculator.execute(new ModCommand(secondValue));
           setResult(calculator.getCurrentValue());
           break;
+        case "+/-":
+          setFirstOperation(!firstOperation);
+          break;
         case "=":
           setFirstValue("");
           setSecondValue("");
+          setFirstOperation(null);
+          break;
         default:
           break;
       }
+      setFirstOperation(secondOperation);
       setSecondOperation(null);
       setSecondValue("");
       setFirstValue("");
-      setFirstOperation(null);
     } else if (!firstOperation && !secondOperation) {
       calculator.setCurrentValue(firstValue);
     }
