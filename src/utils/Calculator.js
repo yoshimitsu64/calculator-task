@@ -1,4 +1,3 @@
-const { array } = require("prop-types");
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3));
