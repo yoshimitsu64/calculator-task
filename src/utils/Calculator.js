@@ -1,3 +1,4 @@
+
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3));
 }
@@ -103,3 +104,87 @@ module.exports = {
   ModCommand,
   calculator,
 };
+
+function calctulateExpression(expression) {
+  const obj = new Calculator();
+
+  const operations = {
+    "-": 1,
+    "+": 1,
+    "*": 2,
+    "/": 2,
+  };
+
+  const numberStack = [];
+  const operationStack = [];
+
+  function executeCommand(expr, value) {
+    switch (expr) {
+      case "+":
+        obj.execute(new AddCommand(value));
+        break;
+      case "-":
+        obj.execute(new SubCommand(value));
+        break;
+      case "*":
+        obj.execute(new MulCommand(value));
+        break;
+      case "/":
+        obj.execute(new DivCommand(value));
+        break;
+      default:
+        break;
+    }
+  }
+
+  function calcHelper() {
+    obj.setCurrentValue(numberStack[numberStack.length - 2]);
+    makeCalc(
+      operationStack[operationStack.length - 1],
+      numberStack[numberStack.length - 1]
+    );
+    numberStack.splice(numberStack.length - 2, 2);
+    numberStack.push(obj.getCurrentValue());
+    operationStack.pop();
+  }
+
+  for (let i = 0; i < expression.length; i++) {
+    if (expression[i] >= 0 && expression[i] <= 9)
+      numberStack.push(expression[i]);
+    if (
+      expression[i] === "+" ||
+      expression[i] === "-" ||
+      expression[i] === "*" ||
+      expression[i] === "/" ||
+      expression[i] === "("
+    ) {
+      if (expression[i] === "(") {
+        operationStack.push("(");
+        continue;
+      }
+      if (
+        operations[expression[i]] <=
+        operations[operationStack[operationStack.length - 1]]
+      ) {
+        while (
+          operations[operationStack[operationStack.length - 1]] >=
+            operations[operationStack[operationStack.length - 2]] ||
+          operations[expression[i]] <=
+            operations[operationStack[operationStack.length - 1]]
+        ) {
+          executeCommand();
+        }
+        operationStack.push(expression[i]);
+      } else {
+        operationStack.push(expression[i]);
+      }
+    } else if (expression[i] === ")") {
+      while (operationStack[operationStack.length - 1] !== "(") {
+        executeCommand();
+      }
+      operationStack.pop();
+    }
+  }
+  executeCommand();
+  return numberStack.join("");
+}

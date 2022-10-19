@@ -74,7 +74,7 @@ function Keypad() {
       calculator.setCurrentValue(firstValue);
     }
   }, [firstOperation, secondOperation, firstValue, secondValue]);
-
+  
   return (
     <StyledKeypadContainer>
       <StyledKeyboard>
