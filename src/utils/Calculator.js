@@ -1,3 +1,5 @@
+import { calcHelper } from "./calculator-helpers.js";
+import { operators, scopes } from "../constants/buttons.js";
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3));
@@ -96,15 +98,6 @@ const Calculator = function () {
 
 const calculator = new Calculator();
 
-module.exports = {
-  AddCommand,
-  SubCommand,
-  MulCommand,
-  DivCommand,
-  ModCommand,
-  calculator,
-};
-
 function calctulateExpression(expression) {
   const obj = new Calculator();
 
@@ -118,38 +111,60 @@ function calctulateExpression(expression) {
   const numberStack = [];
   const operationStack = [];
 
-  function executeCommand(expr, value) {
-    switch (expr) {
-      case "+":
-        obj.execute(new AddCommand(value));
-        break;
-      case "-":
-        obj.execute(new SubCommand(value));
-        break;
-      case "*":
-        obj.execute(new MulCommand(value));
-        break;
-      case "/":
-        obj.execute(new DivCommand(value));
-        break;
-      default:
-        break;
-    }
+  let arr = "";
+  const expressionArray = [];
+  expression = expression.replace(/\s/g, "");
+  for (let i = 0; i < expression.length; i++) {
+    if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
+      if (arr.includes(".") && expression[i] === ".") {
+        throw new Error("Wrong number");
+      }
+      if (arr.length === 0 && expression[i] === "0")
+        throw new Error("You cant write number starting with the digit 0!");
+      arr += expression[i];
+      i === expression.length - 1 && expressionArray.push(arr);
+    } else if (
+      operators.includes(expression[i]) ||
+      scopes.includes(expression[i])
+    ) {
+      if (
+        (expression[i] === "+" || expression[i] === "-") &&
+        arr.length === 0
+      ) {
+        arr += expression[i];
+        i === expression.length - 1 && expressionArray.push(arr);
+        continue;
+      }
+      if (
+        expression[i - 1] === "(" ||
+        (operators.includes(expression[i - 1]) &&
+          operators.includes(expression[i]))
+      ) {
+        throw new Error("Wrong input");
+      }
+      if (
+        expression[i - 1] === "(" &&
+        expression[i] !== "(" &&
+        operators.includes(expression[i])
+      )
+        throw new Error("Wrong input");
+      if (
+        (expression.includes(")") || expression.includes("(")) &&
+        ((expression[i] === ")" && !expressionArray.includes("(")) ||
+          expression.match(/\)/g)?.length !== expression.match(/\(/g)?.length)
+      ) {
+        throw new Error("Expression must consists paired brackets");
+      }
+      arr.length !== 0 && expressionArray.push(arr);
+      arr = "";
+      expressionArray.push(expression[i]);
+    } else throw new Error("Wrong input");
   }
 
-  function calcHelper() {
-    obj.setCurrentValue(numberStack[numberStack.length - 2]);
-    makeCalc(
-      operationStack[operationStack.length - 1],
-      numberStack[numberStack.length - 1]
-    );
-    numberStack.splice(numberStack.length - 2, 2);
-    numberStack.push(obj.getCurrentValue());
-    operationStack.pop();
-  }
+  expression = [...expressionArray];
 
   for (let i = 0; i < expression.length; i++) {
-    if (expression[i] >= 0 && expression[i] <= 9)
+    if (expression[i] >= 0 || expression[i] <= 0)
       numberStack.push(expression[i]);
     if (
       expression[i] === "+" ||
@@ -172,7 +187,7 @@ function calctulateExpression(expression) {
           operations[expression[i]] <=
             operations[operationStack[operationStack.length - 1]]
         ) {
-          executeCommand();
+          calcHelper(obj, numberStack, operationStack);
         }
         operationStack.push(expression[i]);
       } else {
@@ -180,11 +195,26 @@ function calctulateExpression(expression) {
       }
     } else if (expression[i] === ")") {
       while (operationStack[operationStack.length - 1] !== "(") {
-        executeCommand();
+        calcHelper(obj, numberStack, operationStack);
       }
       operationStack.pop();
     }
   }
-  executeCommand();
+  while (
+    operations[operationStack[operationStack.length - 1]] >=
+      operations[operationStack[operationStack.length - 2]] ||
+    operationStack.length === 1
+  ) {
+    calcHelper(obj, numberStack, operationStack);
+  }
   return numberStack.join("");
 }
+console.log("asd")
+export {
+  AddCommand,
+  SubCommand,
+  MulCommand,
+  DivCommand,
+  ModCommand,
+  calculator,
+};
