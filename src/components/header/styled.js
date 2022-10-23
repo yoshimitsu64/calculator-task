@@ -4,7 +4,7 @@ const StyledContainer = styled.div`
   width: 100vw;
   height: 80px;
   justify-content: space-between;
-  background-color: #000000;
+  background-color: ${(props) => props.theme.header};
   align-items: center;
   font-size: 30px;
   padding: 10px 10px 10px 10px;
@@ -15,6 +15,7 @@ const StyledTitle = styled.div`
 const StyledRoutesContainer = styled.div`
     display : flex;
     justify-content: space-around;
+    align-items:center;
 `
 const StyledRoute = styled.span`
     margin : 10px;
@@ -29,7 +30,6 @@ const StyledRoute = styled.span`
         transition : all 0.2s ;
     };
     &:hover::after{
-        cursor: pointer;
         transform: scaleX(1);
     }
     &:hover{

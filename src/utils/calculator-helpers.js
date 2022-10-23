@@ -3,7 +3,7 @@ import { addExpression } from "../store/actions";
 
 export function validateExpression() {
   let arr = [];
-  return function (value, expression,dispatch) {
+  return function (value, expression, dispatch) {
     if (operators.includes(value)) {
       arr.length = 0;
       if (expression[expression.length - 1] === ".") return;
@@ -12,7 +12,7 @@ export function validateExpression() {
       }
       if (expression.length !== 0) {
         if (operators.includes(expression[expression.length - 1])) {
-          dispatch(addExpression(expression.slice(0,-1) + value));
+          dispatch(addExpression(expression.slice(0, -1) + value));
         } else {
           dispatch(addExpression(expression + value));
         }
@@ -46,19 +46,24 @@ export function validateExpression() {
           arr.push(value);
         }
       } else if (value === "0") {
-        if (arr.length === 0) {
+        console.log(expression[expression.length - 1]);
+        if (arr.length > 0) {
           dispatch(addExpression(expression + value));
           arr.push(value);
-        } else if (arr.length > 1) {
+        } else if (operators.includes(expression[expression.length - 1])) {
           dispatch(addExpression(expression + value));
-          arr.push(value);
         } else if (expression[expression.length - 1] === ".") {
           dispatch(addExpression(expression + value));
           arr.push(value);
         }
-      } else {
-        dispatch(addExpression(expression + value));
-        arr.push(value);
+      } else if (value > 0) {
+        if (expression[0] === "0" && expression.length === 1) {
+          dispatch(addExpression(value));
+          arr.push(value);
+        } else {
+          dispatch(addExpression(expression + value));
+          arr.push(value);
+        }
       }
     }
   };

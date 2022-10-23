@@ -1,6 +1,7 @@
 const initialState = {
   history: [],
-  expression: [],
+  expression: "0",
+  historyVisability: false,
 };
 
 function calculatorReducer(state = initialState, action) {
@@ -8,13 +9,22 @@ function calculatorReducer(state = initialState, action) {
     case "ADD_HISTORY":
       return {
         ...state,
-        history: [...state.history,action.payload],
+        history: [...state.history, action.payload],
       };
     case "ADD_EXPRESSION":
-        console.log("fffffffffffff")
       return {
         ...state,
         expression: action.payload,
+      };
+    case "SET_HISTORY_VISABILITY":
+      return {
+        ...state,
+        historyVisability: action.payload,
+      };
+    case "CLEAN_HISTORY":
+      return {
+        ...state,
+        history: [],
       };
     default:
       return state;

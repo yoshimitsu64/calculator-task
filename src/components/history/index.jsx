@@ -1,18 +1,17 @@
-import { useSelector } from "react-redux";
-import { StyledHistoryContainer, StyledHistoryItem, StyledHistoryTitle } from "./styled";
+import PropTypes from "prop-types";
+import { StyledHistory, StyledHistoryItem, StyledHistoryTitle } from "./styled";
 
-function History() {
-  const history = useSelector((state) => state?.history);
+function History(props) {
   return (
-    <StyledHistoryContainer>
+    <StyledHistory>
       <StyledHistoryTitle>History</StyledHistoryTitle>
-      {history.map((item,index) => (
-        <StyledHistoryItem key={index}>
-          {item}
-        </StyledHistoryItem>
+      {props.history.map((item, index) => (
+        <StyledHistoryItem key={index}>{item}</StyledHistoryItem>
       ))}
-    </StyledHistoryContainer>
+    </StyledHistory>
   );
 }
-
+History.propType = {
+  history: PropTypes.array,
+};
 export default History;

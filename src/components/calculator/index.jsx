@@ -1,16 +1,29 @@
-import Keypad from "@components/keypad";
-import Display from "@components/display";
-import History from "@components/history";
-import { StyledCalculatorContainer } from "./styled";
+import PropTypes from 'prop-types'
+import {
+  StyledCalculatorContainer,
+  StyledCalculatorDisplayContainer,
+  StyledHistoryContainer,
+} from "./styled";
+import DisplayContainer from "@containers/FC/display-container";
+import KeypadContainer from "@containers/FC/keypad-container";
+import HistoryContainer from "@containers/FC/history-container";
+import ControlPanelContainer from "@containers/FC/control-panel-container";
 
-function Calculator() {
+function Calculator(props) {
   return (
     <StyledCalculatorContainer>
-      <Display />
-      <Keypad />
-      <History />
+      <StyledCalculatorDisplayContainer>
+        <DisplayContainer />
+        <KeypadContainer />
+      </StyledCalculatorDisplayContainer>
+      <ControlPanelContainer />
+      <StyledHistoryContainer isHidden={props.isHidden}>
+        <HistoryContainer />
+      </StyledHistoryContainer>
     </StyledCalculatorContainer>
   );
 }
-
+Calculator.propType = {
+  isHidden : Boolean
+}
 export default Calculator;

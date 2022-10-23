@@ -1,12 +1,22 @@
 import styled from "styled-components";
 export const StyledCalculatorContainer = styled.div`
   width: 100%;
+  display: flex;
   margin: auto;
-  display: grid;
   height: 100%;
-  padding: 30px;
-  grid-template-columns: 70% 30%;
-  grid-template-rows: 10% 90%;
-  column-gap: 20px;
-  padding-bottom:50px;
+  padding-top: 40px;
+  padding-bottom: 50px;
+  position: relative;
+`;
+export const StyledCalculatorDisplayContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin-right:20px;
+`;
+export const StyledHistoryContainer = styled.div`
+  width: 20%;
+  height: 100%;
+  display:${props => !props.isHidden && "none"};
 `;

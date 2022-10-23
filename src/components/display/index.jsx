@@ -1,21 +1,22 @@
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import {
   StyledDisplayContainer,
   StyledOutput,
   StyledOutputField,
 } from "./styled";
 
-function Display() {
-  const expression = useSelector(state => state?.expression)
+function Display(props) {
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
         <StyledOutput>
-          {expression.length > 0 ? expression : 0}
+          {props.expression.length > 0 ? props.expression : 0}
         </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>
   );
 }
-
+Display.propType = {
+  expression: PropTypes.string,
+};
 export default Display;

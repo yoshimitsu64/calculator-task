@@ -1,3 +1,4 @@
+import Switch from "../switch";
 import {
   StyledContainer,
   StyledRoute,
@@ -10,8 +11,9 @@ const Header = () => {
     <StyledContainer>
       <StyledTitle>Calculator</StyledTitle>
       <StyledRoutesContainer>
-        <StyledRoute>Home</StyledRoute>
-        <StyledRoute>Settings</StyledRoute>
+        <StyledRoute>Home(FC)</StyledRoute>
+        <StyledRoute>Home(CC)</StyledRoute>
+        <Switch />
       </StyledRoutesContainer>
     </StyledContainer>
   );
