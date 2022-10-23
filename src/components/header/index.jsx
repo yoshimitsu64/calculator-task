@@ -11,8 +11,8 @@ const Header = () => {
     <StyledContainer>
       <StyledTitle>Calculator</StyledTitle>
       <StyledRoutesContainer>
-        <StyledRoute>Home(FC)</StyledRoute>
-        <StyledRoute>Home(CC)</StyledRoute>
+        <StyledRoute to="/">Home(FC)</StyledRoute>
+        <StyledRoute to="HOMECC">Home(CC)</StyledRoute>
         <Switch />
       </StyledRoutesContainer>
     </StyledContainer>
