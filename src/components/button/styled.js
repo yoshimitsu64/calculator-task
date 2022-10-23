@@ -15,7 +15,4 @@ export const StyledButton = styled.button`
     background-color: rgba(0, 0, 0, 0.4);
     cursor: pointer;
   }
-  &[data-button="0"] {
-    width: 57%;
-  }
 `;

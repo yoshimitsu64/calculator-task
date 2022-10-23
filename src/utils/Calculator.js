@@ -1,6 +1,3 @@
-import { calcHelper } from "./calculator-helpers.js";
-import { operators, scopes } from "../constants/buttons.js";
-
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3));
 }
@@ -97,6 +94,43 @@ const Calculator = function () {
 };
 
 const calculator = new Calculator();
+const operators = ["+", "-", "*", "/", "%"];
+
+const scopes = ["(", ")"];
+
+function executeCommand(expr, value, obj) {
+  switch (expr) {
+    case "+":
+      obj.execute(new AddCommand(value));
+      break;
+    case "-":
+      obj.execute(new SubCommand(value));
+      break;
+    case "*":
+      obj.execute(new MulCommand(value));
+      break;
+    case "/":
+      obj.execute(new DivCommand(value));
+      break;
+    case "%":
+      obj.execute(new ModCommand(value));
+      break;
+    default:
+      break;
+  }
+}
+
+function calcHelper(obj, numberStack, operationStack) {
+  obj.setCurrentValue(numberStack[numberStack.length - 2]);
+  executeCommand(
+    operationStack[operationStack.length - 1],
+    numberStack[numberStack.length - 1],
+    obj
+  );
+  numberStack.splice(numberStack.length - 2, 2);
+  numberStack.push(obj.getCurrentValue());
+  operationStack.pop();
+}
 
 function calctulateExpression(expression) {
   const obj = new Calculator();
@@ -106,20 +140,19 @@ function calctulateExpression(expression) {
     "+": 1,
     "*": 2,
     "/": 2,
+    "%": 2,
   };
-
   const numberStack = [];
   const operationStack = [];
 
   let arr = "";
   const expressionArray = [];
-  expression = expression.replace(/\s/g, "");
   for (let i = 0; i < expression.length; i++) {
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
       if (arr.includes(".") && expression[i] === ".") {
         throw new Error("Wrong number");
       }
-      if (arr.length === 0 && expression[i] === "0")
+      if (expression[i - 1] === "0" && expression[i] === "0")
         throw new Error("You cant write number starting with the digit 0!");
       arr += expression[i];
       i === expression.length - 1 && expressionArray.push(arr);
@@ -160,7 +193,6 @@ function calctulateExpression(expression) {
       expressionArray.push(expression[i]);
     } else throw new Error("Wrong input");
   }
-
   expression = [...expressionArray];
 
   for (let i = 0; i < expression.length; i++) {
@@ -171,6 +203,7 @@ function calctulateExpression(expression) {
       expression[i] === "-" ||
       expression[i] === "*" ||
       expression[i] === "/" ||
+      expression[i] === "%" ||
       expression[i] === "("
     ) {
       if (expression[i] === "(") {
@@ -209,7 +242,6 @@ function calctulateExpression(expression) {
   }
   return numberStack.join("");
 }
-console.log("asd")
 export {
   AddCommand,
   SubCommand,
@@ -217,4 +249,5 @@ export {
   DivCommand,
   ModCommand,
   calculator,
+  calctulateExpression,
 };
