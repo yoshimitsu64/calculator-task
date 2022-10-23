@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   StyledDisplayContainer,
   StyledOutput,
@@ -5,10 +6,13 @@ import {
 } from "./styled";
 
 function Display() {
+  const expression = useSelector(state => state?.expression)
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
-        <StyledOutput></StyledOutput>
+        <StyledOutput>
+          {expression.length > 0 ? expression : 0}
+        </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>
   );
