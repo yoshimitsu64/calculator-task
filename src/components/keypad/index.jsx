@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import Button from "@components/button";
 import { StyledKeypadContainer, StyledKeyboard } from "./styled";
+import Button from "@components/button";
 import { buttons } from "@constants/buttons";
-import { validateExpression } from "@utils/calculator-helpers";
 import { calctulateExpression } from "@utils/calculator";
 import { validator } from "@utils/calculator-helpers";
 function Keypad() {

@@ -149,11 +149,6 @@ function calctulateExpression(expression) {
   const expressionArray = [];
   for (let i = 0; i < expression.length; i++) {
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
-      if (arr.includes(".") && expression[i] === ".") {
-        throw new Error("Wrong number");
-      }
-      if (expression[i - 1] === "0" && expression[i] === "0")
-        throw new Error("You cant write number starting with the digit 0!");
       arr += expression[i];
       i === expression.length - 1 && expressionArray.push(arr);
     } else if (
@@ -167,26 +162,6 @@ function calctulateExpression(expression) {
         arr += expression[i];
         i === expression.length - 1 && expressionArray.push(arr);
         continue;
-      }
-      if (
-        expression[i - 1] === "(" ||
-        (operators.includes(expression[i - 1]) &&
-          operators.includes(expression[i]))
-      ) {
-        throw new Error("Wrong input");
-      }
-      if (
-        expression[i - 1] === "(" &&
-        expression[i] !== "(" &&
-        operators.includes(expression[i])
-      )
-        throw new Error("Wrong input");
-      if (
-        (expression.includes(")") || expression.includes("(")) &&
-        ((expression[i] === ")" && !expressionArray.includes("(")) ||
-          expression.match(/\)/g)?.length !== expression.match(/\(/g)?.length)
-      ) {
-        throw new Error("Expression must consists paired brackets");
       }
       arr.length !== 0 && expressionArray.push(arr);
       arr = "";
