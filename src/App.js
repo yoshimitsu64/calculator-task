@@ -1,12 +1,18 @@
-import Calculator from "@components/calculator";
-import Header from "@components/header";
+import HomeFCPAGE from "./pages/HomeFCPage";
+import { StyledApp } from "./App.styled";
+import { ThemeProvider } from "styled-components";
+import { darkTheme } from "./assets/themes";
+import { Routes,Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App" style={{height:"100vh",width:"100vw", overflow:"hidden"}}>
-        <Header />
-        <Calculator/>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <StyledApp>
+        <Routes>
+          <Route path='/' element={<HomeFCPAGE/>}/>
+        </Routes>
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 

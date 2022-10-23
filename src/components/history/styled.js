@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
-export const StyledHistoryContainer = styled.div`
+export const StyledHistory = styled.div`
   width: 100%;
-  grid-column-start: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
   height: 100%;
   display: flex;
   flex-direction: column;

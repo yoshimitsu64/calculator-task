@@ -8,9 +8,9 @@ function Button({ button, handleClick }) {
     </StyledButton>
   );
 }
-
 Button.propType = {
   button: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Button;

@@ -19,5 +19,4 @@ export const StyledOutput = styled.span`
   display:flex;
   justify-content:end;
   font-size:70px;
-
 `;

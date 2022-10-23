@@ -148,6 +148,7 @@ function calctulateExpression(expression) {
   let arr = "";
   const expressionArray = [];
   for (let i = 0; i < expression.length; i++) {
+    if (isNaN(expression[expression.length - 1])) throw new Error("Error: missed number")
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
       arr += expression[i];
       i === expression.length - 1 && expressionArray.push(arr);
@@ -215,6 +216,7 @@ function calctulateExpression(expression) {
   ) {
     calcHelper(obj, numberStack, operationStack);
   }
+  if (numberStack[0] === Infinity) throw new Error("Error: Division by zero");
   return numberStack.join("");
 }
 export {
