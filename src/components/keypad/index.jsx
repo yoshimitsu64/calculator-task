@@ -24,8 +24,6 @@ function Keypad() {
   useEffect(() => {
     setExpression(result);
   }, [result]);
-  console.log("История" + history);
-  console.log("Результат " + result);
   return (
     <StyledKeypadContainer>
       <StyledKeyboard>

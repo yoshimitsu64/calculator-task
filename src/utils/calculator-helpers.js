@@ -51,7 +51,6 @@ export function validateExpression() {
           setExpression(expression + value);
           arr.push(value);
         } else if (arr.length > 1) {
-          console.log(arr[0] > 0);
           setExpression(expression + value);
           arr.push(value);
         } else if (expression[expression.length - 1] === ".") {
@@ -62,7 +61,6 @@ export function validateExpression() {
         setExpression(expression + value);
         arr.push(value);
       }
-      console.log(arr);
     }
   };
 }
