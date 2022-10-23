@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const StyledContainer = styled.div`
   display: flex;
@@ -13,28 +14,26 @@ const StyledTitle = styled.div`
   color: white;
 `;
 const StyledRoutesContainer = styled.div`
-    display : flex;
-    justify-content: space-around;
-    align-items:center;
-`
-const StyledRoute = styled.span`
-    margin : 10px;
-    color : white;
-    &::after{
-        display : block;
-        content: '';
-        width : 100%;
-        height: 2px;
-        background-color:red;
-        transform: scaleX(0);
-        transition : all 0.2s ;
-    };
-    &:hover::after{
-        transform: scaleX(1);
-    }
-    &:hover{
-        cursor: pointer;
-    }
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const StyledRoute = styled(Link)`
+  margin: 10px;
+  color: white;
+  text-decoration: none;
+  &::after {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: red;
+    transform: scaleX(0);
+    transition: all 0.2s;
+  }
+  &:hover::after {
+    transform: scaleX(1);
+  }
 `;
 
 export { StyledContainer, StyledTitle, StyledRoutesContainer, StyledRoute };

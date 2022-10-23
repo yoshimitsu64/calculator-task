@@ -1,5 +1,5 @@
-import ControlPanel from "@components/control-panel";
 import { useDispatch, useSelector } from "react-redux";
+import ControlPanel from "@components/control-panel";
 import {
   addExpression,
   cleanHistory,
@@ -18,12 +18,10 @@ function ControlPanelContainer() {
   };
   return (
     <ControlPanel
-      dispatch={dispatch}
       hideHistoryClick={hideHistoryClick}
       cleanHistoryClick={cleanHistoryClick}
       cleanAllClick={cleanAllClick}
     />
   );
 }
-
 export default ControlPanelContainer;
