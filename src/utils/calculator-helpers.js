@@ -1,41 +1,67 @@
-import {
-  AddCommand,
-  SubCommand,
-  MulCommand,
-  DivCommand,
-  ModCommand
-} from "./calculator.js";
+import { operators, scopes } from "@constants/buttons.js";
 
-export function executeCommand(expr, value, obj) {
-  switch (expr) {
-    case "+":
-      obj.execute(new AddCommand(value));
-      break;
-    case "-":
-      obj.execute(new SubCommand(value));
-      break;
-    case "*":
-      obj.execute(new MulCommand(value));
-      break;
-    case "/":
-      obj.execute(new DivCommand(value));
-      break;
-    case "%":
-      obj.execute(new ModCommand(value));
-      break;
-    default:
-      break;
-  }
+export function validateExpression() {
+  let arr = [];
+  return function (value, expression, setExpression) {
+    if (operators.includes(value)) {
+      arr.length = 0;
+      if (expression[expression.length - 1] === ".") return;
+      if (expression.length === 0 && value === "-") {
+        setExpression(expression + value);
+      }
+      if (expression.length !== 0) {
+        if (operators.includes(expression[expression.length - 1])) {
+          setExpression((prev) => {
+            return prev.slice(0, -1) + value;
+          });
+        } else {
+          setExpression(expression + value);
+        }
+      }
+    } else if (scopes.includes(value)) {
+      if (value === "(") {
+        if (
+          expression.length === 0 ||
+          operators.includes(expression[expression.length - 1])
+        ) {
+          setExpression(expression + value);
+        }
+      } else if (value === ")") {
+        if (
+          expression.includes("(") &&
+          !expression.includes(")") &&
+          expression[expression.length - 1] !== "("
+        ) {
+          setExpression(expression + value);
+        } else if (
+          expression.match(/\)/g)?.length < expression.match(/\(/g)?.length &&
+          expression[expression.length - 1] !== "("
+        ) {
+          setExpression(expression + value);
+        }
+      }
+    } else {
+      if (value === ".") {
+        if (!arr.includes(".") && expression[expression.length - 1] !== ".") {
+          setExpression(expression + value);
+          arr.push(value);
+        }
+      } else if (value === "0") {
+        if (arr.length === 0) {
+          setExpression(expression + value);
+          arr.push(value);
+        } else if (arr.length > 1) {
+          setExpression(expression + value);
+          arr.push(value);
+        } else if (expression[expression.length - 1] === ".") {
+          setExpression(expression + value);
+          arr.push(value);
+        }
+      } else {
+        setExpression(expression + value);
+        arr.push(value);
+      }
+    }
+  };
 }
-
-export function calcHelper(obj, numberStack, operationStack) {
-  obj.setCurrentValue(numberStack[numberStack.length - 2]);
-  executeCommand(
-    operationStack[operationStack.length - 1],
-    numberStack[numberStack.length - 1],
-    obj
-  );
-  numberStack.splice(numberStack.length - 2, 2);
-  numberStack.push(obj.getCurrentValue());
-  operationStack.pop();
-}
+export const validator = validateExpression();
