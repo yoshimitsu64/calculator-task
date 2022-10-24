@@ -8,10 +8,12 @@ const StyledContainer = styled.div`
   background-color: ${(props) => props.theme.header};
   align-items: center;
   font-size: 30px;
+  transition: all 0.6s;
   padding: 10px 10px 10px 10px;
 `;
 const StyledTitle = styled.div`
   color: white;
+  color: ${(props) => props.theme.color};
 `;
 const StyledRoutesContainer = styled.div`
   display: flex;
@@ -22,6 +24,7 @@ const StyledRoute = styled(Link)`
   margin: 10px;
   color: white;
   text-decoration: none;
+  color: ${(props) => props.theme.color};
   &::after {
     display: block;
     content: "";

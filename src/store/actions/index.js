@@ -24,3 +24,10 @@ export function cleanHistory() {
     type: "CLEAN_HISTORY",
   };
 }
+
+export function toogleTheme(payload) {
+  return {
+    type: "TOOGLE_THEME",
+    payload: payload,
+  };
+}

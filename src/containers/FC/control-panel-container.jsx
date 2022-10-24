@@ -10,7 +10,9 @@ function ControlPanelContainer() {
   const historyVisability = useSelector((state) => state.historyVisability);
 
   const dispatch = useDispatch();
-  const hideHistoryClick = () => dispatch(setHistoryVisability(!historyVisability));
+  const hideHistoryClick = () => {
+    dispatch(setHistoryVisability(!historyVisability));
+  };
   const cleanHistoryClick = () => dispatch(cleanHistory());
   const cleanAllClick = () => {
     dispatch(cleanHistory());

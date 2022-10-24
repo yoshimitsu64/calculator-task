@@ -4,10 +4,11 @@ import { validator } from "@utils/calculator-helpers";
 import { addHistory } from "@store/actions";
 import { addExpression } from "@store/actions";
 import { connect } from "react-redux";
+import { Component } from "react";
 
 class KeypadContainer extends Component {
   getExpression = () => {
-    this.props.expression;
+    return this.props.expression;
   };
   handleClick = (e) => {
     const { dispatch } = this.props;
@@ -33,7 +34,7 @@ class KeypadContainer extends Component {
     }
   };
   render() {
-    return <Keypad handleClick={handleClick} />;
+    return <Keypad handleClick={this.handleClick} />;
   }
 }
 function mapStateToProps(state) {

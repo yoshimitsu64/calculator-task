@@ -21,5 +21,3 @@ export const StyledItem = styled.button`
     transform: scale(0.9);
   }
 `;
-
-

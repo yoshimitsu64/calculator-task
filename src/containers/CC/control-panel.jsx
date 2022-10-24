@@ -4,11 +4,12 @@ import {
   cleanHistory,
   setHistoryVisability,
 } from "@store/actions";
+import { Component } from "react";
 import { connect } from "react-redux";
 
 class ControlPanelContainer extends Component {
   getHistoryVisability = () => {
-    this.props.historyVisability;
+    return this.props.historyVisability;
   };
   hideHistoryClick = () => {
     this.props.hideHistoryClick(!this.getHistoryVisability());
@@ -22,7 +23,6 @@ class ControlPanelContainer extends Component {
   render() {
     return (
       <ControlPanel
-        // dispatch={dispatch}
         hideHistoryClick={this.hideHistoryClick}
         cleanHistoryClick={this.cleanHistoryClick}
         cleanAllClick={this.cleanAllClick}
@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    hideHistoryClick: (options) => dispatch(setHistoryVisability(!options)),
+    hideHistoryClick: (options) => dispatch(setHistoryVisability(options)),
     cleanHistoryClick: () => dispatch(cleanHistory()),
     cleanAllClick: () => {
       dispatch(cleanHistory());
