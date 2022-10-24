@@ -1,9 +1,10 @@
 import Display from "@components/display";
+import { Component } from "react";
 import { connect } from "react-redux";
 
 class DisplayContainer extends Component {
   render() {
-    const { expression } = this.props.expression;
+    const { expression } = this.props;
     return <Display expression={expression} />;
   }
 }

@@ -24,6 +24,6 @@ function Calculator(props) {
   );
 }
 Calculator.propType = {
-  isHidden : Boolean
+  isHidden : PropTypes.bool
 }
 export default Calculator;

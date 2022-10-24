@@ -10,7 +10,7 @@ function Display(props) {
     <StyledDisplayContainer>
       <StyledOutputField>
         <StyledOutput>
-          {props.expression.length > 0 ? props.expression : 0}
+          {props.expression?.length > 0 ? props.expression : 0}
         </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>

@@ -1,3 +1,4 @@
+import SwitchContainer from "../../containers/FC/switch-container";
 import Switch from "../switch";
 import {
   StyledContainer,
@@ -12,8 +13,8 @@ const Header = () => {
       <StyledTitle>Calculator</StyledTitle>
       <StyledRoutesContainer>
         <StyledRoute to="/">Home(FC)</StyledRoute>
-        <StyledRoute to="HOMECC">Home(CC)</StyledRoute>
-        <Switch />
+        <StyledRoute to="/HOMECC">Home(CC)</StyledRoute>
+        <SwitchContainer />
       </StyledRoutesContainer>
     </StyledContainer>
   );

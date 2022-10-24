@@ -1,18 +1,18 @@
 import HomeFCPAGE from "./pages/HomeFCPage";
 import { StyledApp } from "./App.styled";
 import { ThemeProvider } from "styled-components";
-import { darkTheme } from "./assets/themes";
 import { Routes, Route } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
 import HomeCCPAGE from "./pages/HomeCCPage";
-function App() {
+
+function App(props) {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={props.theme}>
       <StyledApp>
         <ErrorBoundary>
           <Routes>
-            <Route path="/" element={<HomeFCPAGE />}/>
-            <Route path="HOMECC" element={<HomeCCPAGE />}/>
+            <Route path="/" element={<HomeFCPAGE />} />
+            <Route path="/HOMECC" element={<HomeCCPAGE />} />
           </Routes>
         </ErrorBoundary>
       </StyledApp>

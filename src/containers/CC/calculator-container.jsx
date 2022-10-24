@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Calculator from "@components/calculator";
+import Calculator from "@components/calculator-CC";
 import { connect } from "react-redux";
 
 class CalculatorContainer extends Component {
