@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import Switch from "../../components/switch";
-import { toogleTheme } from "../../store/actions";
+import Switch from "@components/switch";
+import { toogleTheme } from "@store/actions";
 
 function SwitchContainer() {
   const dispatch = useDispatch();

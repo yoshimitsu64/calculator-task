@@ -6,11 +6,12 @@ import {
 } from "./styled";
 
 function Display(props) {
+  console.log(props.expression);
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
         <StyledOutput>
-          {props.expression?.length > 0 ? props.expression : 0}
+          <div data-cypress="output" value={props.expression}>{props.expression}</div>
         </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>

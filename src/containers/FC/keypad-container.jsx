@@ -12,7 +12,7 @@ function KeypadContainer() {
   const handleClick = (e) => {
     switch (e.target.value) {
       case "C":
-        dispatch(addExpression(""));
+        dispatch(addExpression("0"));
         break;
       case "CE":
         dispatch(addExpression(expression.slice(0, -1)));
@@ -27,7 +27,11 @@ function KeypadContainer() {
         }
         break;
       default:
-        validator(e.target.value, expression, dispatch);
+        if (!expression.includes("Error")) {
+          validator(e.target.value, expression, dispatch);
+        } else {
+          validator(e.target.value, "", dispatch);
+        }
         break;
     }
   };

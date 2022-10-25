@@ -5,7 +5,6 @@ export const buttons = [
     "%","0","(",".",")","CE"
 ];
 
-
 export const operators = ['+','-','*','/','%'];
 
 export const scopes = ['(',')'];

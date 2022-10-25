@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Calculator from "@components/calculator";
+import Calculator from "@components/calculator-FC";
 
 function CalculatorContainer() {
     const historyVisability= useSelector((state) => state.historyVisability);

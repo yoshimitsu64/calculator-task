@@ -3,7 +3,7 @@ import {
   StyledCalculatorContainer,
   StyledCalculatorDisplayContainer,
   StyledHistoryContainer,
-} from "../calculator/styled";
+} from "@components/calculator-FC/styled";
 import DisplayContainer from '@containers/CC/display-container'
 import KeypadContainer from "@containers/CC/keypad-container";
 import HistoryContainer from "@containers/CC/history-container";
