@@ -15,7 +15,7 @@ export const StyledItem = styled.button`
   color: white;
   width: 100%;
   height: 40px;
-  font-size: 13px;
+  font-size: 20px;
   margin-bottom: 20px;
   &:active {
     transform: scale(0.9);

@@ -24,6 +24,7 @@ function calculatorReducer(state = initialState, action) {
         historyVisability: action.payload,
       };
     case "CLEAN_HISTORY":
+      console.log("vaam")
       return {
         ...state,
         history: [],
