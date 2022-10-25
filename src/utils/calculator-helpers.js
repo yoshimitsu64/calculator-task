@@ -49,7 +49,7 @@ export function validateExpression(value, expression, dispatch) {
         temporaryExpresssionArray.push(value);
       }
     } else if (value === "0") {
-      if (temporaryExpresssionArray.length > 0) {
+      if (temporaryExpresssionArray.length > 0 && expression !== "0") {
         dispatch(addExpression(expression + value));
         temporaryExpresssionArray.push(value);
       } else if (operators.includes(expression[expression.length - 1])) {

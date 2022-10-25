@@ -1,4 +1,3 @@
-import Switch from "../switch";
 import PropTypes from "prop-types";
 import {
   StyledButton,
@@ -6,7 +5,7 @@ import {
   StyledSettings,
   StyledSwitchContainer,
 } from "./styled";
-import SwitchContainer from "../../containers/FC/switch-container";
+import SwitchContainer from "@containers/FC/switch-container";
 
 function Settings(props) {
   const { cleanHistoryClick, cleanAllClick } = props;

@@ -17,7 +17,7 @@ function KeypadContainer() {
         break;
       case "CE":
           expression[expression.length -1] === "." && temporaryExpresssionArray.pop();
-         if(expression.length !==1 && expression[expression.length - 1] !== "0")dispatch(addExpression(expression.slice(0, -1)));
+         if(expression.length !==1)dispatch(addExpression(expression.slice(0, -1)));
          if (expression.length === 1 && expression[expression.length - 1] !== "0") dispatch(addExpression("0"));
 
         break;

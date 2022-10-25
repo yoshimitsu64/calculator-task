@@ -6,7 +6,7 @@ import {
 } from "./styled";
 
 function Display(props) {
-  console.log(props.expression);
+  
   return (
     <StyledDisplayContainer>
       <StyledOutputField>

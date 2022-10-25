@@ -1,4 +1,3 @@
-import SwitchContainer from "../../containers/FC/switch-container";
 import {
   StyledContainer,
   StyledRoute,

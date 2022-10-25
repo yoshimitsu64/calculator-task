@@ -13,7 +13,6 @@ function calculatorReducer(state = initialState, action) {
         history: [...state.history, action.payload],
       };
     case "ADD_EXPRESSION":
-      console.log(action.payload)
       return {
         ...state,
         expression: action.payload,
@@ -24,7 +23,6 @@ function calculatorReducer(state = initialState, action) {
         historyVisability: action.payload,
       };
     case "CLEAN_HISTORY":
-      console.log("vaam")
       return {
         ...state,
         history: [],
