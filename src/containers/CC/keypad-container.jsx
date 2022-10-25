@@ -1,10 +1,11 @@
 import Keypad from "@components/keypad";
 import { calctulateExpression } from "@utils/calculator";
-import { validator } from "@utils/calculator-helpers";
+import { validateExpression } from "@utils/calculator-helpers";
 import { addHistory } from "@store/actions";
 import { addExpression } from "@store/actions";
 import { connect } from "react-redux";
 import { Component } from "react";
+import { temporaryExpresssionArray } from "@utils/calculator-helpers";
 
 class KeypadContainer extends Component {
   getExpression = () => {
@@ -17,7 +18,11 @@ class KeypadContainer extends Component {
         dispatch(addExpression("0"));
         break;
       case "CE":
-        dispatch(addExpression(this.getExpression().slice(0, -1)));
+        this.getExpression()[this.getExpression().length -1] === "." && temporaryExpresssionArray.pop();
+        if(this.getExpression().length !==1 && this.getExpression()[this.getExpression().length - 1] !== "0"){
+          dispatch(addExpression(this.getExpression().slice(0, -1)))
+        }
+        if (this.getExpression().length === 1 && this.getExpression()[this.getExpression().length - 1] !== "0") dispatch(addExpression("0"));
         break;
       case "=":
         try {
@@ -30,9 +35,9 @@ class KeypadContainer extends Component {
         break;
       default:
         if (!this.getExpression().includes("Error")) {
-          validator(e.target.value, this.getExpression(), dispatch);
+          validateExpression(e.target.value, this.getExpression(), dispatch);
         } else {
-          validator(e.target.value, "", dispatch);
+          validateExpression(e.target.value, "", dispatch);
         }
         break;
     }

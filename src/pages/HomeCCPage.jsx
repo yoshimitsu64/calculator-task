@@ -5,7 +5,6 @@ import CalculatorContainer from "@containers/CC/calculator-container";
 const HomeCCPAGE = () => {
   return (
     <ErrorBoundary>
-      <Header />
       <CalculatorContainer />
     </ErrorBoundary>
   );

@@ -5,7 +5,6 @@ import CalculatorContainer from "@containers/FC/calculator-container";
 const HomeFCPAGE = () => {
   return (
     <ErrorBoundary>
-      <Header />
       <CalculatorContainer />
     </ErrorBoundary>
   );

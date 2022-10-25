@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Keypad from "@components/keypad";
 import { calctulateExpression } from "@utils/calculator";
-import { validator } from "@utils/calculator-helpers";
+import { validateExpression } from "@utils/calculator-helpers";
 import { addHistory } from "@store/actions";
 import { addExpression } from "@store/actions";
+import { temporaryExpresssionArray } from "@utils/calculator-helpers";
 
 function KeypadContainer() {
   const dispatch = useDispatch();
@@ -15,7 +16,10 @@ function KeypadContainer() {
         dispatch(addExpression("0"));
         break;
       case "CE":
-        dispatch(addExpression(expression.slice(0, -1)));
+          expression[expression.length -1] === "." && temporaryExpresssionArray.pop();
+         if(expression.length !==1 && expression[expression.length - 1] !== "0")dispatch(addExpression(expression.slice(0, -1)));
+         if (expression.length === 1 && expression[expression.length - 1] !== "0") dispatch(addExpression("0"));
+
         break;
       case "=":
         try {
@@ -28,9 +32,9 @@ function KeypadContainer() {
         break;
       default:
         if (!expression.includes("Error")) {
-          validator(e.target.value, expression, dispatch);
+          validateExpression(e.target.value, expression, dispatch);
         } else {
-          validator(e.target.value, "", dispatch);
+          validateExpression(e.target.value, "", dispatch);
         }
         break;
     }

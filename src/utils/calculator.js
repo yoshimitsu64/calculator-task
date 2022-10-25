@@ -148,7 +148,13 @@ function calctulateExpression(expression) {
   let arr = "";
   const expressionArray = [];
   for (let i = 0; i < expression.length; i++) {
-    if (isNaN(expression[expression.length - 1]))
+    if (expression.match(/\)/g)?.length !== expression.match(/\(/g)?.length) {
+      throw new Error("Expression must consists paired brackets");
+    }
+    if (
+      isNaN(expression[expression.length - 1]) &&
+      expression[expression.length] === 0
+    )
       throw new Error("Error: missed number");
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
       arr += expression[i];

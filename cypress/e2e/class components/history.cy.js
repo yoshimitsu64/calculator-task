@@ -4,7 +4,7 @@ describe("History", () => {
   });
 
   it("Should have changable visability", () => {
-    cy.visit("/");
+    cy.visit("/HOMECC");
     cy.get("div").contains("Show history").click();
     cy.get("[data-cypress=historyContainer]").should(
       "have.css",
@@ -39,7 +39,9 @@ describe("History", () => {
     cy.get("[data-cypress=0]").click();
     cy.get("div").contains("=").click();
     cy.get("[data-cypress=C]").click();
+    cy.visit('/Settings')
     cy.get("button").contains("Clean history").click();
+    cy.visit("/HOMECC");
     cy.get("[data-cypress=historyList]").find("div").should("have.length", 0);
   });
 });
