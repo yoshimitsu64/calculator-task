@@ -3,7 +3,7 @@ import { StyledButton } from "./styled";
 
 function Button({ button, handleClick }) {
   return (
-    <StyledButton onClick={handleClick} data-button={button} value={button}>
+    <StyledButton onClick={handleClick} data-cypress={button} value={button}>
       {button}
     </StyledButton>
   );

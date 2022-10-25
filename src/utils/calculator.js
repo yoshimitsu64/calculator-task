@@ -94,8 +94,8 @@ const Calculator = function () {
 };
 
 const calculator = new Calculator();
-const operators = ["+", "-", "*", "/", "%"];
 
+const operators = ["+", "-", "*", "/", "%"];
 const scopes = ["(", ")"];
 
 function executeCommand(expr, value, obj) {
@@ -148,7 +148,8 @@ function calctulateExpression(expression) {
   let arr = "";
   const expressionArray = [];
   for (let i = 0; i < expression.length; i++) {
-    if (isNaN(expression[expression.length - 1])) throw new Error("Error: missed number")
+    if (isNaN(expression[expression.length - 1]))
+      throw new Error("Error: missed number");
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
       arr += expression[i];
       i === expression.length - 1 && expressionArray.push(arr);
@@ -167,7 +168,7 @@ function calctulateExpression(expression) {
       arr.length !== 0 && expressionArray.push(arr);
       arr = "";
       expressionArray.push(expression[i]);
-    } else throw new Error("Wrong input");
+    } else throw new Error("Error: Wrong input");
   }
   expression = [...expressionArray];
 
@@ -216,7 +217,9 @@ function calctulateExpression(expression) {
   ) {
     calcHelper(obj, numberStack, operationStack);
   }
-  if (numberStack[0] === Infinity) throw new Error("Error: Division by zero");
+  if (numberStack[0] === Infinity || isNaN(numberStack[0])) {
+    throw new Error("Error: Division by zero");
+  }
   return numberStack.join("");
 }
 export {

@@ -9,8 +9,8 @@ import {
 function History(props) {
   return (
     <StyledHistoryContainer>
-      <StyledHistory>
-        <StyledHistoryTitle>History</StyledHistoryTitle>
+      <StyledHistoryTitle>History</StyledHistoryTitle>
+      <StyledHistory data-cypress="historyList">
         {props.history?.map((item, index) => (
           <StyledHistoryItem key={index}>{item}</StyledHistoryItem>
         ))}

@@ -17,7 +17,7 @@ function Calculator(props) {
         <KeypadContainer />
       </StyledCalculatorDisplayContainer>
       <ControlPanelContainer />
-      <StyledHistoryContainer isHidden={props.isHidden}>
+      <StyledHistoryContainer isHidden={props.isHidden} data-cypress="historyContainer">
         <HistoryContainer />
       </StyledHistoryContainer>
     </StyledCalculatorContainer>

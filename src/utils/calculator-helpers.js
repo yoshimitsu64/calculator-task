@@ -2,10 +2,10 @@ import { operators, scopes } from "@constants/buttons.js";
 import { addExpression } from "../store/actions";
 
 export function validateExpression() {
-  let arr = [];
+  const temporaryExpresssionArray = [];
   return function (value, expression, dispatch) {
     if (operators.includes(value)) {
-      arr.length = 0;
+      temporaryExpresssionArray.length = 0;
       if (expression[expression.length - 1] === ".") return;
       if (expression.length === 0 && value === "-") {
         dispatch(addExpression(expression + value));
@@ -41,28 +41,27 @@ export function validateExpression() {
       }
     } else {
       if (value === ".") {
-        if (!arr.includes(".") && expression[expression.length - 1] !== ".") {
+        if (!temporaryExpresssionArray.includes(".") && expression[expression.length - 1] !== ".") {
           dispatch(addExpression(expression + value));
-          arr.push(value);
+          temporaryExpresssionArray.push(value);
         }
       } else if (value === "0") {
-        console.log(expression[expression.length - 1]);
-        if (arr.length > 0) {
+        if (temporaryExpresssionArray.length > 0) {
           dispatch(addExpression(expression + value));
-          arr.push(value);
+          temporaryExpresssionArray.push(value);
         } else if (operators.includes(expression[expression.length - 1])) {
           dispatch(addExpression(expression + value));
         } else if (expression[expression.length - 1] === ".") {
           dispatch(addExpression(expression + value));
-          arr.push(value);
+          temporaryExpresssionArray.push(value);
         }
       } else if (value > 0) {
         if (expression[0] === "0" && expression.length === 1) {
           dispatch(addExpression(value));
-          arr.push(value);
+          temporaryExpresssionArray.push(value);
         } else {
           dispatch(addExpression(expression + value));
-          arr.push(value);
+          temporaryExpresssionArray.push(value);
         }
       }
     }

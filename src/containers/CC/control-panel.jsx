@@ -42,7 +42,7 @@ function mapDispatchToProps(dispatch) {
     cleanHistoryClick: () => dispatch(cleanHistory()),
     cleanAllClick: () => {
       dispatch(cleanHistory());
-      dispatch(addExpression(""));
+      dispatch(addExpression("0"));
     },
   };
 }

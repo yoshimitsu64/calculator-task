@@ -8,7 +8,7 @@ import HomeCCPAGE from "./pages/HomeCCPage";
 function App(props) {
   return (
     <ThemeProvider theme={props.theme}>
-      <StyledApp>
+      <StyledApp data-cypress="app">
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<HomeFCPAGE />} />

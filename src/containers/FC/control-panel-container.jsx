@@ -16,7 +16,7 @@ function ControlPanelContainer() {
   const cleanHistoryClick = () => dispatch(cleanHistory());
   const cleanAllClick = () => {
     dispatch(cleanHistory());
-    dispatch(addExpression(""));
+    dispatch(addExpression("0"));
   };
   return (
     <ControlPanel

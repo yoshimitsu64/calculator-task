@@ -36,6 +36,7 @@ export const StyledHistoryItem = styled.div`
   color: ${({ theme }) => theme.history};
 `;
 export const StyledHistoryTitle = styled.div`
+  font-size: 30px;
   align-self: center;
   height: 5%;
   color: ${({ theme }) => theme.history};

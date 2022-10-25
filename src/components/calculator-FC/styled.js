@@ -18,5 +18,5 @@ export const StyledCalculatorDisplayContainer = styled.div`
 export const StyledHistoryContainer = styled.div`
   width: 20%;
   height: 100%;
-  display:${props => !props.isHidden && "none"};
+  display:${props => props.isHidden ? "block" : "none"};
 `;
