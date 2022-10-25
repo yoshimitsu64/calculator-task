@@ -2,7 +2,7 @@
   "name": "calculator-task",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://yoshimitsu64.github.io/",
+  "homepage": "https://yoshimitsu64.github.io/calculator-task/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",

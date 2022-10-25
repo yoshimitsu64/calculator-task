@@ -8,7 +8,11 @@ function mul(x, y) {
   return parseFloat((+x * +y).toFixed(3));
 }
 function div(x, y) {
-  return parseFloat((+x / +y).toFixed(3));
+  if (y === "0") {
+    throw Error("Error: Division by zero");
+  } else {
+    return parseFloat((+x / +y).toFixed(3));
+  }
 }
 
 function mod(x, y) {
@@ -149,7 +153,7 @@ function calctulateExpression(expression) {
   const expressionArray = [];
   for (let i = 0; i < expression.length; i++) {
     if (expression.match(/\)/g)?.length !== expression.match(/\(/g)?.length) {
-      throw new Error("Expression must consists paired brackets");
+      throw new Error("Error:Expression must consists paired brackets");
     }
     if (
       isNaN(expression[expression.length - 1]) &&
@@ -223,9 +227,9 @@ function calctulateExpression(expression) {
   ) {
     calcHelper(obj, numberStack, operationStack);
   }
-  if (numberStack[0] === Infinity || isNaN(numberStack[0])) {
-    throw new Error("Error: Division by zero");
-  }
+  // if (numberStack[0] === Infinity || isNaN(numberStack[0])) {
+  //   throw new Error("Error: Division by zero");
+  // }
   return numberStack.join("");
 }
 export {

@@ -19,10 +19,7 @@ export function validateExpression(value, expression, dispatch) {
     }
   } else if (scopes.includes(value)) {
     if (value === "(") {
-      if (
-        expression.length === 0 ||
-        operators.includes(expression[expression.length - 1])
-      ) {
+      if (operators.includes(expression[expression.length - 1]) || expression[expression.length - 1] === "(") {
         dispatch(addExpression(expression + value));
       }
     } else if (value === ")") {

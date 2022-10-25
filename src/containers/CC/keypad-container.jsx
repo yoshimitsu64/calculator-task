@@ -19,7 +19,7 @@ class KeypadContainer extends Component {
         break;
       case "CE":
         this.getExpression()[this.getExpression().length -1] === "." && temporaryExpresssionArray.pop();
-        if(this.getExpression().length !==1 && this.getExpression()[this.getExpression().length - 1] !== "0"){
+        if(this.getExpression().length !==1 ){
           dispatch(addExpression(this.getExpression().slice(0, -1)))
         }
         if (this.getExpression().length === 1 && this.getExpression()[this.getExpression().length - 1] !== "0") dispatch(addExpression("0"));
