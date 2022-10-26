@@ -37,7 +37,9 @@ export function validateExpression(value, expression, dispatch) {
       }
     }
   } else {
-    if (value === "." && expression.split()) {
+    if (value === ".") {
+      console.log(!temporaryExpresssionArray.includes("."));
+      console.log(expression[expression.length - 1] !== ".");
       if (
         !temporaryExpresssionArray.includes(".") &&
         expression[expression.length - 1] !== "."

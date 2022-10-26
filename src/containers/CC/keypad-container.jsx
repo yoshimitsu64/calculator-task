@@ -15,14 +15,16 @@ class KeypadContainer extends Component {
     const { dispatch } = this.props;
     switch (e.target.value) {
       case "C":
+        temporaryExpresssionArray.length = 0;
         dispatch(addExpression("0"));
         break;
       case "CE":
-        this.getExpression()[this.getExpression().length -1] === "." && temporaryExpresssionArray.pop();
-        if(this.getExpression().length !==1 ){
-          dispatch(addExpression(this.getExpression().slice(0, -1)))
+        if (this.getExpression()[this.getExpression().length -1] === "." || this.getExpression().length !==1){
+          dispatch(addExpression(this.getExpression().slice(0, -1)));
+        }else if(this.getExpression().length === 1 && this.getExpression()[this.getExpression().length - 1] !== "0") {
+          dispatch(addExpression("0"));
         }
-        if (this.getExpression().length === 1 && this.getExpression()[this.getExpression().length - 1] !== "0") dispatch(addExpression("0"));
+       temporaryExpresssionArray.pop();
         break;
       case "=":
         try {

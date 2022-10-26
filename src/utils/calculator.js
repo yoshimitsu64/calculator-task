@@ -227,9 +227,9 @@ function calctulateExpression(expression) {
   ) {
     calcHelper(obj, numberStack, operationStack);
   }
-  // if (numberStack[0] === Infinity || isNaN(numberStack[0])) {
-  //   throw new Error("Error: Division by zero");
-  // }
+  if (isNaN(numberStack[0])) {
+    throw new Error("Error: Wrong input");
+  }
   return numberStack.join("");
 }
 export {
