@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 export const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200&display=swap');
@@ -8,4 +8,4 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing : border-box;
         font-family: 'Anek Latin', sans-serif;
     };
-`;
+`

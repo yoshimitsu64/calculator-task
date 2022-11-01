@@ -1,13 +1,12 @@
-import ErrorBoundary from "@components/error-boundary";
-import Header from "@components/header";
-import CalculatorContainer from "@containers/CC/calculator-container";
+import ErrorBoundary from "@components/error-boundary"
+import CalculatorContainer from "@containers/CC/calculatorContainer"
 
 const HomeCCPAGE = () => {
   return (
     <ErrorBoundary>
       <CalculatorContainer />
     </ErrorBoundary>
-  );
-};
+  )
+}
 
-export default HomeCCPAGE;
+export default HomeCCPAGE

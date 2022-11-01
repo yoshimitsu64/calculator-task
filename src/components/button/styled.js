@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const StyledButton = styled.button`
   display: flex;
@@ -6,12 +6,12 @@ export const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.button};
   color: ${({ theme }) => theme.btnText};
   align-items: center;
-  border-radius: 30px;
-  border: 1px solid #001d3d;
-  width: 12%;
-  height: 17%;
-  font-size: 50px;
-  margin: 0 3% 0 3%;
+  border-radius: ${({ theme }) => theme.borders.borderRadius[2]};
+  border: ${({ theme }) => theme.borders.border[2]};
+  width: ${({ theme }) => theme.sizes.width[2]};
+  height: ${({ theme }) => theme.sizes.height[6]};
+  font-size: ${({ theme }) => theme.fontSizes[6]};
+  margin: ${({ theme }) => theme.space.margin[2]};
   &:hover {
     transition: all 0.2s;
     background-color: ${({ theme }) => theme.buttonActive};
@@ -21,7 +21,4 @@ export const StyledButton = styled.button`
   &:active {
     transform: scale(0.87);
   }
-  /* &[data-button="CE"] {
-    width: 100%;
-  } */
-`;
+`

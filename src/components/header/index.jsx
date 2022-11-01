@@ -1,21 +1,19 @@
-import {
-  StyledContainer,
-  StyledRoute,
-  StyledRoutesContainer,
-  StyledTitle,
-} from "./styled";
+import { StyledContainer, StyledRoute, StyledRoutesContainer, StyledTitle } from "./styled"
+import { routes } from "@constants/routes"
 
 const Header = () => {
   return (
     <StyledContainer>
       <StyledTitle>Calculator</StyledTitle>
       <StyledRoutesContainer>
-        <StyledRoute to="/">Home(FC)</StyledRoute>
-        <StyledRoute to="/HOMECC">Home(CC)</StyledRoute>
-        <StyledRoute to="/Settings">Settings</StyledRoute>
+        {routes.map(({ path, Title, id }) => (
+          <StyledRoute to={path} key={id}>
+            {Title}
+          </StyledRoute>
+        ))}
       </StyledRoutesContainer>
     </StyledContainer>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

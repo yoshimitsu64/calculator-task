@@ -1,23 +1,23 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const StyledControlPanel = styled.div`
   display: flex;
-  width: 16.45%;
+  width: ${({ theme }) => theme.sizes.width[3]};
   justify-content: center;
   position: absolute;
   right: 0;
   top: 0;
-`;
+`
 
 export const StyledItem = styled.button`
-  border: 1px solid black;
-  background-color: grey;
-  color: white;
-  width: 100%;
-  height: 40px;
-  font-size: 20px;
-  margin-bottom: 20px;
+  border: ${({ theme }) => theme.borders.border[0]};
+  background-color: ${({ theme }) => theme.colors.backgroundColor[1]};
+  color: ${({ theme }) => theme.colors.color[0]};
+  width: ${({ theme }) => theme.sizes.width[6]};
+  height: ${({ theme }) => theme.sizes.height[3]};
+  font-size: ${({ theme }) => theme.fontSizes[3]};
+  margin-bottom: ${({ theme }) => theme.space.marginBottom[1]};
   &:active {
     transform: scale(0.9);
   }
-`;
+`

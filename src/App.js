@@ -1,29 +1,41 @@
-import { ThemeProvider } from "styled-components";
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom"
+import { Suspense, useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
-import { StyledApp } from "./App.styled";
-import Header from "@components/header";
+import { ThemeProvider } from "styled-components"
 
-const HomeFCPAGE = lazy(() => import("@pages/HomeFCPage"));
-const HomeCCPAGE = lazy(() => import("@pages/HomeCCPage"));
-const SettingsPage = lazy(() => import("@pages/SettingsPage"));
+import Header from "@components/header"
+import { routes } from "@constants/routes"
+import { theme, lightTheme, darkTheme } from "@constants/theme"
+import Layout from "@components/layout"
 
-function App(props) {
+function App() {
+  const isDarkTheme = useSelector((state) => state?.isDarkTheme)
+  const [appTheme, setAppTheme] = useState(lightTheme)
+  useEffect(() => {
+    localStorage.setItem(
+      "theme",
+      isDarkTheme ? JSON.stringify(darkTheme) : JSON.stringify(lightTheme),
+    )
+    setAppTheme(JSON.parse(localStorage.getItem("theme")))
+  }, [isDarkTheme])
+
   return (
-    <ThemeProvider theme={props.theme}>
-      <StyledApp data-cypress="app">
-        <Header />
-        <Suspense>
-          <Routes fallback={<h1>Page is loading</h1>}>
-            <Route path="/" element={<HomeFCPAGE />} />
-            <Route path="/HOMECC" element={<HomeCCPAGE />} />
-            <Route path="/Settings" element={<SettingsPage />} />
-          </Routes>
-        </Suspense>
-      </StyledApp>
+    <ThemeProvider theme={theme}>
+      <ThemeProvider theme={appTheme}>
+        <Layout>
+          <Header />
+          <Suspense fallback={<h1>Page is loading</h1>}>
+            <Routes>
+              {routes.map(({ path, component, id }) => (
+                <Route path={path} element={component} key={id} />
+              ))}
+            </Routes>
+          </Suspense>
+        </Layout>
+      </ThemeProvider>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App

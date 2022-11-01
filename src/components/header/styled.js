@@ -1,42 +1,41 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from "react-router-dom"
+import styled from "styled-components"
 const StyledContainer = styled.div`
   display: flex;
-  width: 100vw;
-  height: 80px;
+  width: ${({ theme }) => theme.sizes.width[7]};
+  height: ${({ theme }) => theme.sizes.height[4]};
   justify-content: space-between;
-  background-color: ${(props) => props.theme.header};
+  background-color: ${({ theme }) => theme.header};
   align-items: center;
-  font-size: 30px;
+  font-size: ${({ theme }) => theme.fontSizes[4]};
   transition: all 0.6s;
-  padding: 10px 10px 10px 10px;
-`;
+  padding: ${({ theme }) => theme.space.padding[1]};
+`
 const StyledTitle = styled.div`
-  color: white;
-  color: ${(props) => props.theme.color};
-`;
+  color: ${({ theme }) => theme.color};
+`
 const StyledRoutesContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-`;
+`
 const StyledRoute = styled(Link)`
-  margin: 10px;
-  color: white;
+  margin: ${({ theme }) => theme.space.margin[1]};
+  color: ${({ theme }) => theme.colors.color[0]};
   text-decoration: none;
-  color: ${(props) => props.theme.color};
+  color: ${({ theme }) => theme.color};
   &::after {
     display: block;
     content: "";
-    width: 100%;
-    height: 2px;
-    background-color: red;
+    width: ${({ theme }) => theme.sizes.width[6]};
+    height: ${({ theme }) => theme.sizes.height[0]};
+    background-color: ${({ theme }) => theme.colors.backgroundColor[0]};
     transform: scaleX(0);
     transition: all 0.2s;
   }
   &:hover::after {
     transform: scaleX(1);
   }
-`;
+`
 
-export { StyledContainer, StyledTitle, StyledRoutesContainer, StyledRoute };
+export { StyledContainer, StyledTitle, StyledRoutesContainer, StyledRoute }
