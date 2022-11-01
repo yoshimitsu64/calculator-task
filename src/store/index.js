@@ -1,6 +1,4 @@
-import { createStore } from "redux";
-import calculatorReducer from "./reducers";
+import { createStore } from "redux"
+import calculatorReducer from "./reducers"
 
-const store = createStore(calculatorReducer);
-
-export {store};
+export const store = createStore(calculatorReducer)

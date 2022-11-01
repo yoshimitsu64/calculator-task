@@ -1,13 +1,12 @@
-import ErrorBoundary from "@components/error-boundary";
-import Header from "@components/header";
-import CalculatorContainer from "@containers/FC/calculator-container";
+import ErrorBoundary from "@components/error-boundary"
+import CalculatorContainer from "@containers/FC/calculatorContainer"
 
 const HomeFCPAGE = () => {
   return (
     <ErrorBoundary>
       <CalculatorContainer />
     </ErrorBoundary>
-  );
-};
+  )
+}
 
-export default HomeFCPAGE;
+export default HomeFCPAGE

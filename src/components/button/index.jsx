@@ -1,16 +1,19 @@
-import PropTypes from "prop-types";
-import { StyledButton } from "./styled";
+import PropTypes from "prop-types"
 
-function Button({ button, handleClick }) {
+import { StyledButton } from "./styled"
+
+function Button(props) {
+  const { button, handleClick } = props
+
   return (
     <StyledButton onClick={handleClick} data-cypress={button} value={button}>
       {button}
     </StyledButton>
-  );
+  )
 }
-Button.propType = {
+Button.propTypes = {
   button: PropTypes.string,
-  onClick: PropTypes.func,
-};
+  handleClick: PropTypes.func,
+}
 
-export default Button;
+export default Button

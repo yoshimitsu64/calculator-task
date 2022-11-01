@@ -1,12 +1,18 @@
-import "./styles.css";
+import PropTypes from "prop-types"
+
+import { StyledInput, StyledSwitch, StyledToogleSwitch } from "./styled"
 
 function Switch(props) {
-  return (
-    <label className="toggle-switch">
-      <input type="checkbox" onClick={props.handleClick} />
-      <span className="switch" />
-    </label>
-  );
-}
+  const { handleClick } = props
 
-export default Switch;
+  return (
+    <StyledToogleSwitch>
+      <StyledInput type="checkbox" onClick={handleClick} />
+      <StyledSwitch />
+    </StyledToogleSwitch>
+  )
+}
+Switch.propTypes = {
+  handleClick: PropTypes.func,
+}
+export default Switch

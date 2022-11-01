@@ -1,14 +1,15 @@
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
+
+import SwitchContainer from "@containers/FC/switchContainer"
 import {
   StyledButton,
   StyledCleanHistoryContainer,
   StyledSettings,
   StyledSwitchContainer,
-} from "./styled";
-import SwitchContainer from "@containers/FC/switch-container";
+} from "./styled"
 
 function Settings(props) {
-  const { cleanHistoryClick, cleanAllClick } = props;
+  const { cleanHistoryClick } = props
   return (
     <StyledSettings>
       <h1>Settings</h1>
@@ -18,14 +19,12 @@ function Settings(props) {
       </StyledSwitchContainer>
       <StyledCleanHistoryContainer>
         <StyledButton onClick={cleanHistoryClick}>Clean history</StyledButton>
-        <StyledButton onClick={cleanAllClick}>Clean all</StyledButton>
       </StyledCleanHistoryContainer>
     </StyledSettings>
-  );
+  )
 }
-Settings.propType = {
+Settings.propTypes = {
   cleanHistoryClick: PropTypes.func,
-  cleanAllClick: PropTypes.func,
-};
+}
 
-export default Settings;
+export default Settings

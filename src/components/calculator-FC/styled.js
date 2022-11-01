@@ -1,22 +1,21 @@
-import styled from "styled-components";
+import styled from "styled-components"
 export const StyledCalculatorContainer = styled.div`
-  width: 100%;
+  width: ${({ theme }) => theme.sizes.width[6]};
   display: flex;
-  margin: auto;
-  height: 100%;
-  padding-top: 40px;
-  padding-bottom: 50px;
+  height: ${({ theme }) => theme.sizes.height[7]};
+  padding-top: ${({ theme }) => theme.space.paddingTop[1]};
+  padding-bottom: ${({ theme }) => theme.space.paddingBottom[1]};
   position: relative;
-`;
+`
 export const StyledCalculatorDisplayContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
-  margin-right:20px;
-`;
+  width: ${({ theme }) => theme.sizes.width[6]};
+  width: ${({ theme }) => theme.sizes.width[7]};
+  margin-right: ${({ theme }) => theme.space.marginRight[0]};
+`
 export const StyledHistoryContainer = styled.div`
-  width: 20%;
-  height: 100%;
-  display:${props => props.isHidden ? "block" : "none"};
-`;
+  width: ${({ theme }) => theme.sizes.width[4]};
+  height: ${({ theme }) => theme.sizes.height[7]};
+  display: ${({ isHidden }) => (isHidden ? "block" : "none")};
+`

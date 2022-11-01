@@ -1,23 +1,32 @@
-import PropTypes from "prop-types";
+import { memo } from "react"
+import PropTypes from "prop-types"
+
 import {
   StyledDisplayContainer,
   StyledOutput,
   StyledOutputField,
-} from "./styled";
+  StyledPreviousExpression,
+} from "./styled"
 
 function Display(props) {
-  
+  const { expression, result, previousExpression } = props
+
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
+        <StyledPreviousExpression>{previousExpression}</StyledPreviousExpression>
         <StyledOutput>
-          <div data-cypress="output" value={props.expression}>{props.expression}</div>
+          <div data-cypress="output" value={expression}>
+            {expression?.length === 0 ? result : expression}
+          </div>
         </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>
-  );
+  )
 }
-Display.propType = {
+Display.propTypes = {
   expression: PropTypes.string,
-};
-export default Display;
+  result: PropTypes.string,
+  previousExpression: PropTypes.string,
+}
+export default memo(Display)
