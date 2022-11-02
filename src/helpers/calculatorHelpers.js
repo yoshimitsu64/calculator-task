@@ -140,6 +140,9 @@ export function calculate(outputString, stack, obj, executeCommand) {
       stack.push(obj.getCurrentValue())
     }
   }
+  if(isNaN(stack[0])){
+    throw new Error("Error: Wrong input")
+  }
   return stack.join("")
 }
 
