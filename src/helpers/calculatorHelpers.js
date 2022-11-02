@@ -127,18 +127,20 @@ export function validateExpression(value, expression, dispatch) {
   }
 }
 
-export function calculate(obj, numberStack, operationStack, executeCommand) {
-  obj.setCurrentValue(numberStack[numberStack.length - 2])
-  executeCommand(
-    operationStack[operationStack.length - 1],
-    numberStack[numberStack.length - 1],
-    obj,
-  )
-  numberStack.splice(numberStack.length - 2, 2)
-  numberStack.push(obj.getCurrentValue())
-  operationStack.pop()
+export function calculate(outputString, stack, obj, executeCommand) {
+  let regex = /[0-9]/;
+  console.log(outputString)
+  for (let i = 0; i < outputString.length; i++) {
+    if (regex.test(outputString[i])) {
+      stack.push(outputString[i])
+    } else {
+      executeCommand(stack.pop(), stack.pop(), outputString[i], obj)
+      stack.push(obj.getCurrentValue())
+    }
+  }
+  console.log(stack)
+  return stack.join("")
 }
-
 
 export function checkExpressionForOperators(expression) {
   for (let i = 1; i < expression.length; i++) {
