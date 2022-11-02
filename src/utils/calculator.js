@@ -1,5 +1,4 @@
-import { scopes, operators } from "@constants/buttons"
-import {calculate} from '@helpers/calculatorHelpers'
+import { calculate } from "@helpers/calculatorHelpers"
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -147,29 +146,34 @@ function calctulateExpression(expression) {
     }
     if (isNaN(expression[expression.length - 1]) && expression[expression.length] === 0)
       throw new Error("Error: missed number")
-    if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
-      if (expression[i] === "." && arr.length === 1) {
-        arr += "0."
-        continue
-      }
-      arr += expression[i]
-      i === expression.length - 1 && expressionArray.push(arr)
-    } else if (operators.includes(expression[i]) || scopes.includes(expression[i])) {
-      if (
-        (expression[i] === "+" || expression[i] === "-") &&
-        arr.length === 0 &&
-        expression[expression.length - 3] !== ")"
-      ) {
+    if (arr.length === 0) {
+      if ((expression[i].match(/[+-]/) || []).length > 0 || expression[i] === ".") {
         arr += expression[i]
-        i === expression.length - 1 && expressionArray.push(arr)
-        continue
+      }else if ((expression[i].match(/[/*%]/) || []).length > 0 || expression[i] === ".") {
+        expressionArray.push(expression[i])
+      } else if ((expression[i].match(/[1-9]/) || []).length > 0) {
+        arr += expression[i]
+      }else if ((expression[i].match(/[)]|[(]/) || []).length) {
+        expressionArray.push(expression[i])
       }
-      arr.length !== 0 && expressionArray.push(arr)
-      arr = ""
-      expressionArray.push(expression[i])
-    } else throw new Error("Error: Wrong input")
+    } else {
+      if ((expression[i].match(/[0-9]/) || []).length > 0) {
+        arr += expression[i]
+      }else if (expression[i] === "." && !arr.includes(".")) {
+        arr += expression[i]
+      }else if ((expression[i].match(/[/*%+-]/) || []).length > 0) {
+        expressionArray.push(arr)
+        expressionArray.push(expression[i]);
+        arr = ""
+      }else if ((expression[i].match(/[)]|[(]/) || []).length) {
+        expressionArray.push(arr)
+        arr=""
+        expressionArray.push(expression[i])
+      }
+    }
   }
-
+  arr && expressionArray.push(arr);
+  arr=""
   expression = [...expressionArray]
 
   for (let i = 0; i < expression.length; i++) {

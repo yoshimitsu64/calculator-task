@@ -82,9 +82,10 @@ export function validateExpression(value, expression, dispatch) {
       }
     }
   } else {
+    console.log((expression[expression.length - 1]?.match(/[/*%]/g) || []).length < 1)
     if (
       value === "+/-" &&
-      (expression[expression.length - 1].match(/[/*%]/g) || []).length < 1 &&
+      (expression[expression.length - 1]?.match(/[/*%(]/g) || []).length < 1 &&
       !(temporaryExpresssionArray[0] === "." && temporaryExpresssionArray.length === 1)
     ) {
       let indexOfLasNumber = expression.lastIndexOf(temporaryExpresssionArray.join(""))
