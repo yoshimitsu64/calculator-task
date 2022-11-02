@@ -1,5 +1,7 @@
-import { calculate } from "@helpers/calculatorHelpers"
-import { operators } from "@constants/buttons"
+ const operators = ['+','-','*','/','%'];
+
+ const scopes = ['(',')'];
+
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -11,7 +13,7 @@ function mul(x, y) {
   return parseFloat((+x * +y).toFixed(3))
 }
 function div(x, y) {
-  if (y === "0") {
+  if (x === "0") {
     throw Error("Error: Division by zero")
   } else {
     return parseFloat((+x / +y).toFixed(3))
@@ -75,6 +77,20 @@ const Calculator = function () {
       return current
     },
   }
+}
+
+ function calculate(outputString, stack, obj, executeCommand) {
+  let regex = /[0-9]/
+    console.log(outputString)
+  for (let i = 0; i < outputString.length; i++) {
+    if (regex.test(outputString[i])) {
+      stack.push(outputString[i])
+    } else {
+      executeCommand(stack.pop(), stack.pop(), outputString[i], obj)
+      stack.push(obj.getCurrentValue())
+    }
+  }
+  return stack.join("")
 }
 
 function executeCommand(value1, value2, expr, obj) {
@@ -215,4 +231,4 @@ function calctulateExpression(expression) {
   return calculate(outputString, stack, obj, executeCommand)
 }
 
-export { AddCommand, SubCommand, MulCommand, DivCommand, ModCommand, calctulateExpression }
+console.log(calctulateExpression("10/0"))
