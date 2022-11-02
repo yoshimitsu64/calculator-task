@@ -155,7 +155,7 @@ function calctulateExpression(expression) {
   for (let i = 0; i < expression.length; i++) {
     if (expression[i] === "(") {
       stack.push("(")
-      if (expression[i + 1] === "-" || expression[i + 1] === "+") outputString.push("0")
+      if (expression[i + 1] === "-" || expression[i + 1] === "+" || expression[i - 1] === "-" || expression[i - 1] === "+") outputString.push("0")
     } else if (operators.includes(expression[i])) {
       if (
         operations[stack[stack.length - 1]] < operations[expression[i]] ||
@@ -184,6 +184,8 @@ function calctulateExpression(expression) {
       outputString.push(stack.pop())
     }
   }
+
+  
 
   return calculate(outputString, stack, obj, executeCommand)
 }

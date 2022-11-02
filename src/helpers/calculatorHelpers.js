@@ -6,36 +6,39 @@ let copyTemporaryExpresssionArray = []
 let pressed = false
 
 function changeOperator(indexOfLasNumber, copyTemporaryExpresssionArray, pressed) {
-  if (
-    copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "+" ||
-    copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "-"
-  ) {
-    if (copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "+") {
-      copyTemporaryExpresssionArray.splice(copyTemporaryExpresssionArray.length - 1, 1, "-")
-      return
+  let regex = /[/*%.]/
+  if (!regex.test(copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1])) {
+    if (
+      copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "+" ||
+      copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "-"
+    ) {
+      if (copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "+") {
+        copyTemporaryExpresssionArray.splice(copyTemporaryExpresssionArray.length - 1, 1, "-")
+        return
+      } else {
+        copyTemporaryExpresssionArray.splice(copyTemporaryExpresssionArray.length - 1, 1, "+")
+        return
+      }
+    } else if (
+      checkExpressionForOperators(copyTemporaryExpresssionArray) === false ||
+      (containsOperator(copyTemporaryExpresssionArray[0]) === 1 &&
+        containsOperator(copyTemporaryExpresssionArray.join("")) === 1)
+    ) {
+      if (copyTemporaryExpresssionArray[0] === "-") {
+        copyTemporaryExpresssionArray.splice(0, 1)
+      } else {
+        copyTemporaryExpresssionArray.splice(0, 0, "-")
+      }
     } else {
-      copyTemporaryExpresssionArray.splice(copyTemporaryExpresssionArray.length - 1, 1, "+")
-      return
-    }
-  } else if (
-    checkExpressionForOperators(copyTemporaryExpresssionArray) === false ||
-    (containsOperator(copyTemporaryExpresssionArray[0]) === 1 &&
-      containsOperator(copyTemporaryExpresssionArray.join("")) === 1)
-  ) {
-    if (copyTemporaryExpresssionArray[0] === "-") {
-      copyTemporaryExpresssionArray.splice(0, 1)
-    } else {
-      copyTemporaryExpresssionArray.splice(0, 0, "-")
-    }
-  } else {
-    if (!pressed) {
-      copyTemporaryExpresssionArray.splice(indexOfLasNumber, 0, "(", "-")
-      copyTemporaryExpresssionArray.push(")")
-      return (pressed = true)
-    } else {
-      copyTemporaryExpresssionArray.splice(indexOfLasNumber - 2, 2)
-      copyTemporaryExpresssionArray.pop()
-      return (pressed = false)
+      if (!pressed) {
+        copyTemporaryExpresssionArray.splice(indexOfLasNumber, 0, "(", "-")
+        copyTemporaryExpresssionArray.push(")")
+        return (pressed = true)
+      } else {
+        copyTemporaryExpresssionArray.splice(indexOfLasNumber - 2, 2)
+        copyTemporaryExpresssionArray.pop()
+        return (pressed = false)
+      }
     }
   }
 }
@@ -128,7 +131,7 @@ export function validateExpression(value, expression, dispatch) {
 }
 
 export function calculate(outputString, stack, obj, executeCommand) {
-  let regex = /[0-9]/;
+  let regex = /[0-9]/
   console.log(outputString)
   for (let i = 0; i < outputString.length; i++) {
     if (regex.test(outputString[i])) {
@@ -138,7 +141,6 @@ export function calculate(outputString, stack, obj, executeCommand) {
       stack.push(obj.getCurrentValue())
     }
   }
-  console.log(stack)
   return stack.join("")
 }
 

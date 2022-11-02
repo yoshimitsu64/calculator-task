@@ -205,4 +205,4 @@ function calctulateExpression(expression) {
   return calculate(outputString, stack, obj, executeCommand)
 }
 
-console.log(calctulateExpression("25*6"))
+console.log(calctulateExpression("-(25*(-6.0))"))
