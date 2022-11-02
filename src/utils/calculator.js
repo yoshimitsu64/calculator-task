@@ -1,4 +1,5 @@
 import { scopes, operators } from "@constants/buttons"
+import {calculate} from '@helpers/calculatorHelpers'
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -123,25 +124,15 @@ function executeCommand(expr, value, obj) {
   }
 }
 
-function calcHelper(obj, numberStack, operationStack) {
-  obj.setCurrentValue(numberStack[numberStack.length - 2])
-  executeCommand(
-    operationStack[operationStack.length - 1],
-    numberStack[numberStack.length - 1],
-    obj,
-  )
-  numberStack.splice(numberStack.length - 2, 2)
-  numberStack.push(obj.getCurrentValue())
-  operationStack.pop()
-}
-
 function calctulateExpression(expression) {
   const obj = new Calculator()
 
   const expressionArray = []
   const numberStack = []
   const operationStack = []
+
   let arr = ""
+
   const operations = {
     "-": 1,
     "+": 1,
@@ -157,6 +148,10 @@ function calctulateExpression(expression) {
     if (isNaN(expression[expression.length - 1]) && expression[expression.length] === 0)
       throw new Error("Error: missed number")
     if ((expression[i] >= 0 && expression[i] <= 9) || expression[i] === ".") {
+      if (expression[i] === "." && arr.length === 1) {
+        arr += "0."
+        continue
+      }
       arr += expression[i]
       i === expression.length - 1 && expressionArray.push(arr)
     } else if (operators.includes(expression[i]) || scopes.includes(expression[i])) {
@@ -178,8 +173,9 @@ function calctulateExpression(expression) {
   expression = [...expressionArray]
 
   for (let i = 0; i < expression.length; i++) {
-    if (expression[i] >= 0 || expression[i] <= 0) numberStack.push(expression[i])
-    if ((expression[i].match(/[(/*%+-]/g) || []).length) {
+    if (expression[i] >= 0 || expression[i] <= 0) {
+      numberStack.push(expression[i])
+    } else if ((expression[i].match(/[(/*%+-]/g) || []).length) {
       if (expression[i] === "(") {
         operationStack.push("(")
         continue
@@ -190,7 +186,7 @@ function calctulateExpression(expression) {
             operations[operationStack[operationStack.length - 2]] ||
           operations[expression[i]] <= operations[operationStack[operationStack.length - 1]]
         ) {
-          calcHelper(obj, numberStack, operationStack)
+          calculate(obj, numberStack, operationStack, executeCommand)
         }
         operationStack.push(expression[i])
       } else {
@@ -198,7 +194,7 @@ function calctulateExpression(expression) {
       }
     } else if (expression[i] === ")") {
       while (operationStack[operationStack.length - 1] !== "(") {
-        calcHelper(obj, numberStack, operationStack)
+        calculate(obj, numberStack, operationStack, executeCommand)
       }
       operationStack.pop()
     }
@@ -208,13 +204,14 @@ function calctulateExpression(expression) {
       operations[operationStack[operationStack.length - 2]] ||
     operationStack.length === 1
   ) {
-    calcHelper(obj, numberStack, operationStack)
+    calculate(obj, numberStack, operationStack, executeCommand)
   }
   if (isNaN(numberStack[0])) {
     throw new Error("Error: Wrong input")
   }
   return numberStack.join("")
 }
+
 export {
   AddCommand,
   SubCommand,

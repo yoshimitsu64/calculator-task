@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const StyledDisplayContainer = styled.div`
   width: ${({ theme }) => theme.sizes.width[6]};
+  height: ${({ theme }) => theme.sizes.height[9]};
   display: flex;
   align-items: end;
   position: relative;

@@ -7,9 +7,9 @@ import {
   validateExpression,
   temporaryExpresssionArray,
   checkExpressionForOperators,
+  containsOperator
 } from "@helpers/calculatorHelpers"
 import { addHistory, addExpression, setResult, setPreviousExpression } from "@actions"
-import { containsOperator } from "@helpers/calculatorHelpers"
 
 function KeypadContainer() {
   const dispatch = useDispatch()
@@ -39,16 +39,12 @@ function KeypadContainer() {
       case "C":
         result.length !== 0 && dispatch(setResult(""))
         temporaryExpresssionArray.length = 0
-        dispatch(setResult("0"))
+        dispatch(setResult(""))
         dispatch(addExpression(""))
         break
       case "CE":
-        result.length !== 0 && dispatch(setResult("0"))
-        if (expression[expression.length - 1] === "." || expression.length !== 1) {
-          dispatch(addExpression(expression.slice(0, -1)))
-        } else if (expression.length === 1 && expression[expression.length - 1] !== "0") {
-          dispatch(addExpression("0"))
-        }
+        result.length !== 0 && dispatch(setResult(""))
+        dispatch(addExpression(expression.slice(0, -1)))
         temporaryExpresssionArray.pop()
         break
       case "=":
@@ -67,7 +63,7 @@ function KeypadContainer() {
         }
         break
       default:
-        result?.length !== 0 && dispatch(setResult("0"))
+        result?.length !== 0 && dispatch(setResult(""))
         if (!expression.includes("Error")) {
           validateExpression(e.target.value, expression, dispatch)
         } else {
@@ -88,7 +84,7 @@ function KeypadContainer() {
 
   useEffect(() => {
     if (error) {
-      dispatch(addHistory(previousExpression));
+      dispatch(addHistory(previousExpression))
       dispatch(addExpression(error))
       setError(null)
     }
