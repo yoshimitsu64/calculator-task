@@ -1,5 +1,5 @@
 import { calculate } from "@helpers/calculatorHelpers"
-import {operators} from '@constants/buttons'
+import { operators } from "@constants/buttons"
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -151,11 +151,26 @@ function calctulateExpression(expression) {
   arr && expressionArray.push(arr)
   arr = ""
   expression = [...expressionArray]
-  let regex = /[0-9]/
+
+  let numbers = /[0-9]/
+  let negatives = /[-]/
+  let positives = /[+]/
+
   for (let i = 0; i < expression.length; i++) {
     if (expression[i] === "(") {
       stack.push("(")
-      if (expression[i + 1] === "-" || expression[i + 1] === "+" || expression[i - 1] === "-" || expression[i - 1] === "+") outputString.push("0")
+      if (expression[i - 1] === "-" && expression[i + 2] !== ")") {
+        if (!numbers.test(expression[i - 2]) && i !== 0) {
+          outputString.push("0")
+          continue
+        }
+      }
+      if (expression[i - 1] === "+" && expression[i + 2] !== ")") {
+        if (!numbers.test(expression[i - 2]) && i !== 0) {
+          outputString.push("0")
+          continue
+        }
+      }
     } else if (operators.includes(expression[i])) {
       if (
         operations[stack[stack.length - 1]] < operations[expression[i]] ||
@@ -169,7 +184,19 @@ function calctulateExpression(expression) {
         }
         stack.push(expression[i])
       }
-    } else if (regex.test(expression[i])) {
+    } else if (numbers.test(expression[i])) {
+      if (negatives.test(expression[i])) {
+        outputString.push("0")
+        outputString.push(expression[i].slice(1))
+        outputString.push(expression[i].slice(0, 1))
+        continue
+      }
+      if (positives.test(expression[i])) {
+        outputString.push("0")
+        outputString.push(expression[i].slice(1))
+        outputString.push(expression[i].slice(0, 1))
+        continue
+      }
       outputString.push(expression[i])
     } else if (expression[i] === ")") {
       while (stack.length > 0 && stack[stack.length - 1] !== "(") {
@@ -184,8 +211,6 @@ function calctulateExpression(expression) {
       outputString.push(stack.pop())
     }
   }
-
-  
 
   return calculate(outputString, stack, obj, executeCommand)
 }
