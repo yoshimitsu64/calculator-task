@@ -35,27 +35,28 @@ class KeypadContainer extends Component {
 
   componentDidUpdate(_, prevState) {
     if (prevState.calculate !== this.state.calculate) {
-      if (prevState.previousExpression !== this.getPreviousExpression()) {
-        if (this.state.previousExpression !== this.getPreviousExpression()) {
-          try {
-            this.setState({
-              calculatedExpression: calctulateExpression(this.getExpression()),
-            })
-            this.setState({ previousExpression: this.getExpression() })
-          } catch (e) {
-            this.setState({ error: e.message })
-          }
-        }
-      }
-      if (this.state.error === null && this.getPreviousExpression()) {
-        console.log(this.state.calculatedExpression)
+      if (prevState.calculate !== this.state.calculate) {
         this.props.dispatch(setResult(this.state.calculatedExpression))
         this.props.dispatch(addHistory(this.getExpression()))
         this.props.dispatch(addExpression(""))
-      } else {
-        this.props.dispatch(addExpression(this.state.error))
+      }
+
+      if (prevState.previousExpression !== this.getPreviousExpression()) {
+        try {
+          this.setState({
+            calculatedExpression: calctulateExpression(this.getExpression()),
+          })
+          this.setState({ previousExpression: this.getExpression() })
+        } catch (e) {
+          this.setState({ error: e.message })
+        }
+      }
+
+      if (prevState.error !== this.state.error) {
+        this.props.dispatch(setResult(this.state.error))
         this.setState({ error: null })
       }
+
       this.setState({ calculate: false })
     }
   }
@@ -63,24 +64,14 @@ class KeypadContainer extends Component {
   handleClick = (e) => {
     switch (e.target.value) {
       case "C":
-        this.getResult().length !== 0 && this.props.dispatch(setResult(""))
+        this.getResult()?.length !== 0 && this.props.dispatch(setResult(""))
         temporaryExpresssionArray.length = 0
-        this.props.dispatch(setResult("0"))
+        this.props.dispatch(setResult(""))
         this.props.dispatch(addExpression(""))
         break
       case "CE":
-        this.getResult().length !== 0 && this.props.dispatch(setResult("0"))
-        if (
-          this.getExpression()[this.getExpression().length - 1] === "." ||
-          this.getExpression().length !== 1
-        ) {
-          this.props.dispatch(addExpression(this.getExpression().slice(0, -1)))
-        } else if (
-          this.getExpression().length === 1 &&
-          this.getExpression()[this.getExpression().length - 1] !== "0"
-        ) {
-          this.props.dispatch(addExpression("0"))
-        }
+        this.getResult()?.length !== 0 && this.props.dispatch(setResult(""))
+        this.props.dispatch(addExpression(this.getExpression().slice(0, -1)))
         temporaryExpresssionArray.pop()
         break
       case "=":
@@ -99,7 +90,7 @@ class KeypadContainer extends Component {
         }
         break
       default:
-        this.getResult()?.length !== 0 && this.props.dispatch(setResult("0"))
+        this.getResult()?.length !== 0 && this.props.dispatch(setResult(""))
         if (!this.getExpression().includes("Error")) {
           validateExpression(e.target.value, this.getExpression(), this.props.dispatch)
         } else {

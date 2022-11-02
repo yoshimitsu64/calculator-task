@@ -2,10 +2,10 @@ import { operators, scopes } from "@constants/buttons.js"
 import { addExpression } from "@actions"
 
 export const temporaryExpresssionArray = []
-
 let copyTemporaryExpresssionArray = []
+let pressed = false
 
-function changeOperator2(indexOfLasNumber, copyTemporaryExpresssionArray, expression) {
+function changeOperator(indexOfLasNumber, copyTemporaryExpresssionArray, pressed) {
   if (
     copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "+" ||
     copyTemporaryExpresssionArray[copyTemporaryExpresssionArray.length - 1] === "-"
@@ -27,13 +27,15 @@ function changeOperator2(indexOfLasNumber, copyTemporaryExpresssionArray, expres
     } else {
       copyTemporaryExpresssionArray.splice(0, 0, "-")
     }
-  } else if (!(expression[expression.length - 1].match(/[/*%]/g) || []).length) {
-    if (expression[indexOfLasNumber - 1] !== "-") {
+  } else {
+    if (!pressed) {
       copyTemporaryExpresssionArray.splice(indexOfLasNumber, 0, "(", "-")
       copyTemporaryExpresssionArray.push(")")
+      return (pressed = true)
     } else {
       copyTemporaryExpresssionArray.splice(indexOfLasNumber - 2, 2)
       copyTemporaryExpresssionArray.pop()
+      return (pressed = false)
     }
   }
 }
@@ -53,6 +55,7 @@ export function validateExpression(value, expression, dispatch) {
         dispatch(addExpression(expression + value))
       }
     }
+    pressed = false
   } else if (scopes.includes(value)) {
     if (value === "(") {
       if (
@@ -79,9 +82,14 @@ export function validateExpression(value, expression, dispatch) {
       }
     }
   } else {
-    if (value === "+/-") {
+    if (
+      value === "+/-" &&
+      (expression[expression.length - 1].match(/[/*%]/g) || []).length < 1 &&
+      !(temporaryExpresssionArray[0] === "." && temporaryExpresssionArray.length === 1)
+    ) {
       let indexOfLasNumber = expression.lastIndexOf(temporaryExpresssionArray.join(""))
-      changeOperator2(indexOfLasNumber, copyTemporaryExpresssionArray, expression)
+      changeOperator(indexOfLasNumber, copyTemporaryExpresssionArray, pressed)
+      pressed = !pressed
       dispatch(addExpression(copyTemporaryExpresssionArray.join("")))
       return
     } else if (value === ".") {
@@ -95,9 +103,7 @@ export function validateExpression(value, expression, dispatch) {
       }
     } else if (value === "0") {
       if (
-        (temporaryExpresssionArray.length > 0 &&
-          expression !== "0" &&
-          temporaryExpresssionArray[0] !== "0") ||
+        temporaryExpresssionArray[0] !== "0" ||
         temporaryExpresssionArray.includes(".") ||
         expression[expression.length - 1] === "("
       ) {
@@ -111,20 +117,27 @@ export function validateExpression(value, expression, dispatch) {
         temporaryExpresssionArray.push(value)
       }
     } else if (value > 0 && expression[expression.length - 1] !== ")") {
-      if (temporaryExpresssionArray.length >= 0) {
-        if (
-          temporaryExpresssionArray[temporaryExpresssionArray.length - 1] === "0" &&
-          temporaryExpresssionArray[0] === "0" &&
-          !temporaryExpresssionArray.includes(".")
-        ) {
-          return
-        }
-        dispatch(addExpression(expression + value))
-        temporaryExpresssionArray.push(value)
+      if (!temporaryExpresssionArray.includes(".") && temporaryExpresssionArray[0] === "0") {
+        return
       }
+      dispatch(addExpression(expression + value))
+      temporaryExpresssionArray.push(value)
     }
   }
 }
+
+export function calculate(obj, numberStack, operationStack, executeCommand) {
+  obj.setCurrentValue(numberStack[numberStack.length - 2])
+  executeCommand(
+    operationStack[operationStack.length - 1],
+    numberStack[numberStack.length - 1],
+    obj,
+  )
+  numberStack.splice(numberStack.length - 2, 2)
+  numberStack.push(obj.getCurrentValue())
+  operationStack.pop()
+}
+
 
 export function checkExpressionForOperators(expression) {
   for (let i = 1; i < expression.length; i++) {

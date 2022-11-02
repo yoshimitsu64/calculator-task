@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux"
 
 import Settings from "@components/settings"
-import { cleanHistory, addExpression, setPreviousExpression } from "@actions"
+import { cleanHistory, addExpression, setPreviousExpression, setResult } from "@actions"
 
 function SettingsContainer() {
   const dispatch = useDispatch()
   const cleanHistoryClick = () => {
     dispatch(cleanHistory())
-    dispatch(addExpression("0"))
+    dispatch(addExpression(""))
+    dispatch(setResult(""))
     dispatch(setPreviousExpression(""))
   }
 

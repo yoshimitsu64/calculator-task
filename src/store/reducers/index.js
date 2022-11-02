@@ -3,7 +3,7 @@ import { ADD_HISTORY, ADD_EXPRESSION, SET_HISTORY_VISABILITY,CLEAN_HISTORY,TOOGL
 const initialState = {
   history: [],
   expression: "",
-  result: "0",
+  result: "",
   previousExpression: "",
   historyVisability: false,
   isDarkTheme: false,

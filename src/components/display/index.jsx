@@ -10,14 +10,14 @@ import {
 
 function Display(props) {
   const { expression, result, previousExpression } = props
-
+  
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
         <StyledPreviousExpression>{previousExpression}</StyledPreviousExpression>
         <StyledOutput>
           <div data-cypress="output" value={expression}>
-            {expression?.length === 0 ? result : expression}
+            {result?.length !== 0 ? result : expression}
           </div>
         </StyledOutput>
       </StyledOutputField>
