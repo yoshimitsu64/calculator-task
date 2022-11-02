@@ -1,5 +1,5 @@
-import { calculate } from "@helpers/calculatorHelpers"
-import {operators} from '@constants/buttons'
+const operators = ["+", "-", "*", "/", "%"]
+
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -49,9 +49,9 @@ const ModCommand = function (value, current) {
   return new Command(mod, div, value, current)
 }
 
-const Calculator = function () {
-  let current = 0
-  let commands = []
+var Calculator = function () {
+  var current = 0
+  var commands = []
 
   function action(command) {
     var name = command.execute.toString().substr(9, 3)
@@ -97,6 +97,21 @@ function executeCommand(value1, value2, expr, obj) {
     default:
       break
   }
+}
+
+ function calculate(outputString, stack, obj, executeCommand) {
+  let regex = /[0-9]/
+  console.log(outputString)
+  for (let i = 0; i < outputString.length; i++) {
+    if (regex.test(outputString[i])) {
+      stack.push(outputString[i])
+    } else {
+      executeCommand(stack.pop(), stack.pop(), outputString[i], obj)
+      stack.push(obj.getCurrentValue())
+    }
+  }
+  console.log(stack)
+  return stack.join("")
 }
 
 function calctulateExpression(expression) {
@@ -148,10 +163,12 @@ function calctulateExpression(expression) {
       }
     }
   }
+
   arr && expressionArray.push(arr)
   arr = ""
   expression = [...expressionArray]
-  let regex = /[0-9]/
+  let b = /[0-9]/
+
   for (let i = 0; i < expression.length; i++) {
     if (expression[i] === "(") {
       stack.push("(")
@@ -169,7 +186,7 @@ function calctulateExpression(expression) {
         }
         stack.push(expression[i])
       }
-    } else if (regex.test(expression[i])) {
+    } else if (b.test(expression[i])) {
       outputString.push(expression[i])
     } else if (expression[i] === ")") {
       while (stack.length > 0 && stack[stack.length - 1] !== "(") {
@@ -188,4 +205,4 @@ function calctulateExpression(expression) {
   return calculate(outputString, stack, obj, executeCommand)
 }
 
-export { AddCommand, SubCommand, MulCommand, DivCommand, ModCommand, calctulateExpression }
+console.log(calctulateExpression("25*6"))
