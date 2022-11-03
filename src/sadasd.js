@@ -1,6 +1,4 @@
-import { calculate } from "@helpers/calculatorHelpers"
-import { operators } from "@constants/buttons"
-import { tokenizeInput } from "../helpers/calculatorHelpers"
+const operators = ["+", "-", "*", "/", "%"]
 
 function add(x, y) {
   return parseFloat((+x + +y).toFixed(3))
@@ -100,6 +98,94 @@ function executeCommand(value1, value2, expr, obj) {
   }
 }
 
+function calculate(outputString, stack, obj, executeCommand) {
+  let regex = /[0-9]/
+  console.log(outputString)
+  for (let i = 0; i < outputString.length; i++) {
+    if (regex.test(outputString[i])) {
+      stack.push(outputString[i])
+    } else {
+      executeCommand(stack.pop(), stack.pop(), outputString[i], obj)
+      stack.push(obj.getCurrentValue())
+    }
+  }
+  if (isNaN(stack[0])) {
+    throw new Error("Error: Wrong input")
+  }
+  return stack.join("")
+}
+
+function tokenizeInput(input) {
+  var expression = input.replace(/\s/g, "")
+
+  if (/[^.0-9+\-/*^()]/g.test(expression)) return null
+
+  if (
+    /[+\-*/^(]/.test(expression.charAt(expression.length - 1)) ||
+    /[+*/^)]/.test(expression.charAt(0))
+  )
+    return null
+
+  var indexesForZeros = []
+  for (let i = 0; i < expression.length; i++)
+    if (expression.charAt(i) === "(" && expression.charAt(i + 1) === "-")
+      indexesForZeros.push(i + 1)
+
+  for (let i = 0; i < indexesForZeros.length; i++) {
+    expression =
+      expression.slice(0, indexesForZeros[i]) + "0" + expression.slice(indexesForZeros[i])
+  }
+
+  if (expression.charAt(0) === "-") expression = "0" + expression
+
+  let tokens = []
+  let parentheses = 0
+  let currentNumber = ""
+  let areWeInsideANumber = false
+  let haveWeFoundDot = false
+  let wasPreviousTokenOperator = false
+
+  for (let i = 0; i < expression.length; i++) {
+    var a = expression.charAt(i)
+
+    if (areWeInsideANumber && haveWeFoundDot && a === ".") return null
+
+    if (/[+\-/*^]/.test(a)) {
+      if (wasPreviousTokenOperator) return null
+
+      wasPreviousTokenOperator = true
+    } else {
+      wasPreviousTokenOperator = false
+    }
+
+    if (/[0-9]/.test(a)) {
+      areWeInsideANumber = true
+      currentNumber += a
+    } else if (/[+\-/*^()]/.test(a)) {
+      areWeInsideANumber = false
+      haveWeFoundDot = false
+
+      if (currentNumber !== "") tokens.push(currentNumber)
+
+      currentNumber = ""
+
+      tokens.push(a)
+    }
+
+    if (a === ".") {
+      currentNumber += "."
+    }
+
+    if (a === "(") parentheses++
+    if (a === ")") parentheses--
+  }
+
+  if (parentheses != 0) return null
+
+  tokens.push(currentNumber)
+  return tokens
+}
+
 function calctulateExpression(expression) {
   const obj = new Calculator()
 
@@ -111,26 +197,27 @@ function calctulateExpression(expression) {
     "/": 2,
     "%": 2,
   }
-  let numbers = /[0-9]/
-  let negatives = /[-]/
-  let positives = /[+]/
+
+  expression = tokenizeInput(expression)
 
   const stack = []
   const outputString = []
 
-  expression = tokenizeInput(expression)
+  let numbers = /[0-9]/
+  let negatives = /[-]/
+  let positives = /[+]/
 
   for (let i = 0; i < expression.length; i++) {
     if (expression[i] === "(") {
       stack.push("(")
-      if (expression[i - 1] === "-" && expression[i + 2] !== ")" && expression[i - 2] !== ")") {
+      if (expression[i - 1] === "-" && expression[i + 2] !== ")" && expression[i-2] !==")") {
         if (expression[i - 1] === "-" && expression[i + 2] !== ")") {
           if (!numbers.test(expression[i - 2]) && i !== 0) {
             outputString.push("0")
             continue
           }
         }
-        if (expression[i - 1] === "+" && expression[i + 2] !== ")" && expression[i - 2] !== ")") {
+        if (expression[i - 1] === "+" && expression[i + 2] !== ")" && expression[i-2] !==")") {
           if (!numbers.test(expression[i - 2]) && i !== 0) {
             outputString.push("0")
             continue
@@ -181,4 +268,4 @@ function calctulateExpression(expression) {
   return calculate(outputString, stack, obj, executeCommand)
 }
 
-export { AddCommand, SubCommand, MulCommand, DivCommand, ModCommand, calctulateExpression }
+console.log(calctulateExpression("(.3+1)-(111.25*66)"))
