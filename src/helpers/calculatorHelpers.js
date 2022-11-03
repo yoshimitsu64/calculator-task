@@ -46,7 +46,7 @@ function changeOperator(indexOfLasNumber, copyTemporaryExpresssionArray, pressed
 export function tokenizeInput(input) {
   var expression = input.replace(/\s/g, "")
 
-  if (/[^.0-9+\-/*^()]/g.test(expression)) return null
+  if (/[^0-9+\-/*^()]/g.test(expression)) return null
 
   if (
     /[+\-*/^(]/.test(expression.charAt(expression.length - 1)) ||

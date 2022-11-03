@@ -174,7 +174,7 @@ function calctulateExpression(expression) {
 
   if (stack.length !== 0) {
     while (stack.length !== 0) {
-      outputString.push(stack.pop())
+      outputString.push(stack.pop());
     }
   }
 
