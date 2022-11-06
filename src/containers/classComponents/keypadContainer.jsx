@@ -38,7 +38,6 @@ class KeypadContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.result !== this.getResult()) {
-      console.log("ffifi");
       if (this.getResult()?.length === 0) {
         this.props.dispatch(setPreviousExpression(""));
       }

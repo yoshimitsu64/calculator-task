@@ -203,7 +203,6 @@ export function validateExpression(value, expression, dispatch) {
 
 export function calculate(outputString, stack, obj, executeCommand) {
   let regex = /[0-9]/;
-  console.log(outputString);
   for (let i = 0; i < outputString.length; i++) {
     if (regex.test(outputString[i])) {
       stack.push(outputString[i]);

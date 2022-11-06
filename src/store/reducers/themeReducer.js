@@ -7,7 +7,6 @@ const initialState = {
 export function themeReducer(state = initialState, action) {
   switch (action.type) {
     case TOOGLE_THEME:
-      console.log("ccc");
       return {
         ...state,
         isDarkTheme: action.payload,
