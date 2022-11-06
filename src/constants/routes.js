@@ -1,4 +1,4 @@
-import {lazy} from 'react'
+import { lazy } from "react";
 
 const HomeFCPAGE = lazy(() => import("@pages/homeFCPage"));
 const HomeCCPAGE = lazy(() => import("@pages/homeCCPage"));
@@ -8,19 +8,19 @@ export const routes = [
   {
     path: "/",
     Title: "Home(FC)",
-    id : 1,
-    component :<HomeFCPAGE/>
+    id: 1,
+    component: <HomeFCPAGE />,
   },
   {
     path: "/HOMECC",
     Title: "Home(CC)",
-    id : 2,
-    component : <HomeCCPAGE/>
+    id: 2,
+    component: <HomeCCPAGE />,
   },
   {
     path: "/Settings",
     Title: "Settings",
-    id : 3,
-    component: <SettingsPage/>
+    id: 3,
+    component: <SettingsPage />,
   },
 ];

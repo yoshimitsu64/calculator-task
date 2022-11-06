@@ -1,15 +1,13 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 import {
   StyledHistory,
   StyledHistoryContainer,
   StyledHistoryItem,
   StyledHistoryTitle,
-} from "./styled"
+} from "./styled";
 
-function History(props) {
-  const { history } = props
-
+function History({ history }) {
   return (
     <StyledHistoryContainer>
       <StyledHistoryTitle>History</StyledHistoryTitle>
@@ -19,9 +17,9 @@ function History(props) {
         ))}
       </StyledHistory>
     </StyledHistoryContainer>
-  )
+  );
 }
 History.propTypes = {
   history: PropTypes.array,
-}
-export default History
+};
+export default History;

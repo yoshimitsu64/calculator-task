@@ -1,16 +1,14 @@
-import { memo } from "react"
-import PropTypes from "prop-types"
+import { memo } from "react";
+import PropTypes from "prop-types";
 
 import {
   StyledDisplayContainer,
   StyledOutput,
   StyledOutputField,
   StyledPreviousExpression,
-} from "./styled"
+} from "./styled";
 
-function Display(props) {
-  const { expression, result, previousExpression } = props
-  
+function Display({ expression, result, previousExpression }) {
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
@@ -22,11 +20,11 @@ function Display(props) {
         </StyledOutput>
       </StyledOutputField>
     </StyledDisplayContainer>
-  )
+  );
 }
 Display.propTypes = {
   expression: PropTypes.string,
   result: PropTypes.string,
   previousExpression: PropTypes.string,
-}
-export default memo(Display)
+};
+export default memo(Display);

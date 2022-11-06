@@ -1,8 +1,8 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const StyledHistoryContainer = styled.div`
   width: ${({ theme }) => theme.sizes.width[6]};
-  height: ${({ theme }) => theme.sizes.height[7]};
+  height: ${({ theme }) => theme.sizes.height[7]}%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -10,35 +10,35 @@ export const StyledHistoryContainer = styled.div`
     position: absolute;
     display: block;
     content: "";
-    width: ${({ theme }) => theme.sizes.width[8]};
-    height: ${({ theme }) => theme.sizes.height[7]};
+    width: ${({ theme }) => theme.sizes.width[8]}px;
+    height: ${({ theme }) => theme.sizes.height[7]}%;
     background-color: ${({ theme }) => theme.devider};
   }
-`
+`;
 
 export const StyledHistory = styled.div`
-  width: ${({ theme }) => theme.sizes.width[6]};
-  height: ${({ theme }) => theme.sizes.height[7]};
+  width: ${({ theme }) => theme.sizes.width[6]}%;
+  height: ${({ theme }) => theme.sizes.height[7]}%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  font-size: ${({ theme }) => theme.fontSizes[3]};
+  font-size: ${({ theme }) => theme.fontSizes[3]}px;
   overflow: auto;
-  padding-bottom: ${({ theme }) => theme.space.paddingBottom[0]};
-`
+  padding-bottom: ${({ theme }) => theme.space.paddingBottom[0]}px;
+`;
 
 export const StyledHistoryItem = styled.div`
-  width: ${({ theme }) => theme.sizes.width[6]};
+  width: ${({ theme }) => theme.sizes.width[6]}%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: ${({ theme }) => theme.space.margin[0]};
+  margin: ${({ theme }) => theme.space.margin[3]}px;
   color: ${({ theme }) => theme.history};
-`
+`;
 export const StyledHistoryTitle = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes[4]};
+  font-size: ${({ theme }) => theme.fontSizes[4]}px;
   align-self: center;
-  height: ${({ theme }) => theme.sizes.height[5]};
+  height: ${({ theme }) => theme.sizes.height[5]}%;
   color: ${({ theme }) => theme.history};
-`
+`;

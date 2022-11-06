@@ -1,5 +1,5 @@
-import { StyledContainer, StyledRoute, StyledRoutesContainer, StyledTitle } from "./styled"
-import { routes } from "@constants/routes"
+import { routes } from "@constants/routes";
+import { StyledContainer, StyledRoute, StyledRoutesContainer, StyledTitle } from "./styled";
 
 const Header = () => {
   return (
@@ -13,7 +13,7 @@ const Header = () => {
         ))}
       </StyledRoutesContainer>
     </StyledContainer>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

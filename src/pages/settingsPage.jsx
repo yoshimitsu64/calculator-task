@@ -1,12 +1,13 @@
-import ErrorBoundary from "@components/error-boundary"
-import SettingsContainer from "@containers/FC/settingsContainer"
+import ErrorBoundary from "@components/errorBoundary";
+
+import SettingsContainer from "@containers/functionalComponents/settingsContainer";
 
 function SettingsPage() {
   return (
     <ErrorBoundary>
       <SettingsContainer />
     </ErrorBoundary>
-  )
+  );
 }
 
-export default SettingsPage
+export default SettingsPage;
