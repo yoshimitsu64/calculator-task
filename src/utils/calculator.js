@@ -69,6 +69,7 @@ const Calculator = function () {
     undo: function () {
       var command = commands.pop();
       current = command.undo(current, command.value);
+      console.log("Undo " + action(command) + ": " + command.value);
     },
 
     getCurrentValue: function () {
