@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 
+import { toast } from "yoshimitsu-toast-library";
+
 import Settings from "@components/settings";
 
 import { cleanHistory } from "@actions/historyActions";
 import { addExpression, setPreviousExpression, setResult } from "@actions/calculatorActions";
-import { toast } from "yoshimitsu-toast-library";
 
 function SettingsContainer() {
   const dispatch = useDispatch();

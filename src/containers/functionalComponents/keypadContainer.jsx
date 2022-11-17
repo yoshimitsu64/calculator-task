@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useMemo, useEffect, memo } from "react";
 
+import { toast } from "yoshimitsu-toast-library";
+
 import Keypad from "@components/keypad";
 
 import { calctulateExpression } from "@utils/calculator";
@@ -14,7 +16,6 @@ import {
 
 import { addExpression, setResult, setPreviousExpression } from "@actions/calculatorActions";
 import { addHistory } from "@actions/historyActions";
-import { toast } from "yoshimitsu-toast-library";
 
 import {
   selectExpression,
