@@ -6,7 +6,6 @@ import { selectHistoryVisability } from "@selectors/historySelectors";
 
 function CalculatorContainer() {
   const historyVisability = useSelector(selectHistoryVisability);
-
   return <Calculator isHidden={historyVisability} />;
 }
 

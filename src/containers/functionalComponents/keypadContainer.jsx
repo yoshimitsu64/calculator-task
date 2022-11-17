@@ -14,6 +14,7 @@ import {
 
 import { addExpression, setResult, setPreviousExpression } from "@actions/calculatorActions";
 import { addHistory } from "@actions/historyActions";
+import { toast } from "yoshimitsu-toast-library";
 
 import {
   selectExpression,
@@ -51,6 +52,10 @@ function KeypadContainer() {
         temporaryExpresssionArray.length = 0;
         dispatch(setResult(""));
         dispatch(addExpression(""));
+        toast.info("Expression has been cleaned", {
+          position: "top-left",
+          animation: "bounce",
+        });
         break;
       case "CE":
         result.length !== 0 && dispatch(setResult(""));
@@ -98,6 +103,26 @@ function KeypadContainer() {
       dispatch(addExpression(error));
       setError(null);
     }
+  }, [error]);
+
+  useEffect(() => {
+    if (result.length > 0 && !result.includes("Error")) {
+      toast.success(`Result is ${result}`, {
+        position: "top-center",
+        animation: "bounce",
+        topic: "Success calculate",
+        verticalMargin: "0px",
+      });
+    }
+  }, [result]);
+
+  useEffect(() => {
+    error &&
+      toast.error("Invalid expression", {
+        position: "bottom-left",
+        animation: "bounce",
+        topic: "Calculate error",
+      });
   }, [error]);
 
   useEffect(() => {
