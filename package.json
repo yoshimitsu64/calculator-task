@@ -19,7 +19,7 @@
     "redux": "^4.2.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.0",
-    "yoshimitsu-toast-library": "^1.0.8"
+    "yoshimitsu-toast-library": "^1.0.9"
   },
   "scripts": {
     "start": "react-app-rewired start",

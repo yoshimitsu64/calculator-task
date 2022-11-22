@@ -14,7 +14,11 @@ function SettingsContainer() {
     dispatch(addExpression(""));
     dispatch(setResult(""));
     dispatch(setPreviousExpression(""));
-    toast.warning("You've just cleaned history");
+    toast.createToast("info", "you've just deleted expression", {
+      position: "top-left",
+      duration: 10,
+      animation: "bounce",
+    });
   };
 
   return <Settings oncleanHistory={oncleanHistory} />;

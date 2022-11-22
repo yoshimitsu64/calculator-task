@@ -7,7 +7,6 @@ import { selectHistory } from "@selectors/historySelectors";
 function HistoryContainer() {
   const history = useSelector(selectHistory);
   
-
   return <History history={history} />;
 }
 

@@ -4,9 +4,7 @@ import { useState, useMemo, useEffect, memo } from "react";
 import { toast } from "yoshimitsu-toast-library";
 
 import Keypad from "@components/keypad";
-
 import { calctulateExpression } from "@utils/calculator";
-
 import {
   validateExpression,
   temporaryExpresssionArray,
@@ -53,9 +51,11 @@ function KeypadContainer() {
         temporaryExpresssionArray.length = 0;
         dispatch(setResult(""));
         dispatch(addExpression(""));
-        toast.info("Expression has been cleaned", {
+        toast.createToast("info", "You've just deleted expression", {
           position: "top-left",
+          duration: 10,
           animation: "bounce",
+          topic: "Expression cleaner",
         });
         break;
       case "CE":
@@ -108,21 +108,21 @@ function KeypadContainer() {
 
   useEffect(() => {
     if (result.length > 0 && !result.includes("Error")) {
-      toast.success(`Result is ${result}`, {
+      toast.createToast("success", `Result is ${result}`, {
         position: "top-center",
+        duration: 10,
         animation: "bounce",
-        topic: "Success calculate",
-        verticalMargin: "0px",
+        topic: "Result",
       });
     }
   }, [result]);
 
   useEffect(() => {
     error &&
-      toast.error("Invalid expression", {
-        position: "bottom-left",
+      toast.createToast("error", "Invalid expression", {
+        position: "top-center",
+        duration: 10,
         animation: "bounce",
-        topic: "Calculate error",
       });
   }, [error]);
 

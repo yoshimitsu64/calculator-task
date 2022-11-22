@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import { Component } from "react";
+
 import PropTypes from "prop-types";
+import { toast } from "yoshimitsu-toast-library";
 
 import Keypad from "@components/keypad";
 
@@ -42,6 +44,14 @@ class KeypadContainer extends Component {
         this.props.dispatch(setPreviousExpression(""));
       }
     }
+    if (prevState.calculatedExpression !== this.state.calculatedExpression) {
+      toast.createToast("success", `Result is ${this.state.calculatedExpression}`, {
+        position: "top-center",
+        duration: 10,
+        animation: "bounce",
+        topic: "Result",
+      });
+    }
 
     if (prevState.calculate !== this.state.calculate) {
       if (prevState.calculate !== this.state.calculate) {
@@ -64,6 +74,11 @@ class KeypadContainer extends Component {
       if (prevState.error !== this.state.error) {
         this.props.dispatch(setResult(this.state.error));
         this.setState({ error: null });
+        toast.createToast("error", "Invalid expression", {
+          position: "top-center",
+          duration: 10,
+          animation: "bounce",
+        });
       }
 
       this.setState({ calculate: false });
@@ -77,6 +92,12 @@ class KeypadContainer extends Component {
         temporaryExpresssionArray.length = 0;
         this.props.dispatch(setResult(""));
         this.props.dispatch(addExpression(""));
+        toast.createToast("info", "You've just deleted expression", {
+          position: "top-left",
+          duration: 10,
+          animation: "bounce",
+          topic: "Expression cleaner",
+        });
         break;
       case "CE":
         this.getResult()?.length !== 0 && this.props.dispatch(setResult(""));

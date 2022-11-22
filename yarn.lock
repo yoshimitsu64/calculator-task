@@ -10082,10 +10082,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yoshimitsu-toast-library@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/yoshimitsu-toast-library/-/yoshimitsu-toast-library-1.0.8.tgz#91dbc70d9b2b673d8a174391484748c39ad4573f"
-  integrity sha512-rCzf/8qh8yJ+hVIVuStO0r1AZLdgbBPBgjdieRpkID1gPSYSOJCD+1QOA2K1/1r5T/oaiVIA7DjhS8JpWJSMng==
+yoshimitsu-toast-library@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/yoshimitsu-toast-library/-/yoshimitsu-toast-library-1.0.9.tgz#81139870acef52265bfe019102cf1d47b496b48b"
+  integrity sha512-hiVEfP4QRoniJ2t2J79K5oeuIDI8qvkhUQy2uSMnKG0cGPxuYb4fi0NmuAn3Yko5iBmli3/eEtCTOdSq3wjuDg==
   dependencies:
     "@babel/runtime" "^7.20.1"
     cypress "^11.1.0"
