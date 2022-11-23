@@ -9,7 +9,6 @@ import {
 } from "./styled";
 
 function Display({ expression, result, previousExpression }) {
-  console.log(result);
   return (
     <StyledDisplayContainer>
       <StyledOutputField>
